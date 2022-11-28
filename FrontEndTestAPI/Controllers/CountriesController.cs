@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.DataTransferObjects;
-using FrontEndTestAPI.Data.ApiResults;
+using FrontEndTestAPI.Data.ApiResult;
 using FrontEndTestAPI.DataServices;
 
 namespace FrontEndTestAPI.Controllers

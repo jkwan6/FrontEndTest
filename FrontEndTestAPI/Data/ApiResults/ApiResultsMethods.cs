@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace FrontEndTestAPI.Data.ApiResult
 {
-    public class ApiResultsMethods
+    public partial class ApiResult<T>
     {
         // This one is to shield against SQL Injection Attacks. Not sure how.
         public static bool IsValidProperty(
@@ -26,14 +26,20 @@ namespace FrontEndTestAPI.Data.ApiResult
             return prop != null;
         }
 
-        public static bool PropertyIsNotNullAndValid(string? prop)
+        public static bool IsNotNullProperty(string? prop)
         {
             if (!string.IsNullOrEmpty(prop))
             {
-                if (ApiResultsMethods.IsValidProperty(prop))
-                {
-                    return true;
-                }
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsValidAndNotNullProperty(string? prop)
+        {
+            if (IsNotNullProperty(prop) && IsValidProperty(prop))
+            {
+                return true;
             }
             return false;
         }

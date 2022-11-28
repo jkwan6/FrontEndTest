@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FrontEndTestAPI.Data.ApiResults;
+using FrontEndTestAPI.Data.ApiResult;
 using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.DataTransferObjects;
@@ -27,8 +27,6 @@ namespace FrontEndTestAPI.DataServices
             // The Async Method returns and ApiResult<City> Instantiation
             // The return that instantiation, you call the static class on ApiResult
             // CreateAsync returns an ApiResult<City>
-
-            ApiResult<CityDTO>.CreateAsync(_context.Cities.ToListAsync());
 
             return await ApiResult<CityDTO>.CreateAsync(
                 _context.Cities.AsNoTracking().Select(c => new CityDTO

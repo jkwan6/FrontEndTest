@@ -1,4 +1,4 @@
-﻿using FrontEndTestAPI.Data.ApiResults;
+﻿using FrontEndTestAPI.Data.ApiResult;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;

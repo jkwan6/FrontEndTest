@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using System.Linq.Dynamic.Core;
 using System.Reflection;
 
@@ -7,7 +8,7 @@ namespace FrontEndTestAPI.Data.ApiResult
     // Generic Class
     // The ApiResult Class cannot be instantiated from the outside
     // The only way to instantiate it is by using the static class
-    public class ApiResult<T>
+    public partial class ApiResult<T>  // This class encapsulates the DTOs
     {
         private ApiResult(              // Private Constructor - Instantiate from Within
             List<T> data,                                                               
@@ -52,30 +53,24 @@ namespace FrontEndTestAPI.Data.ApiResult
             // Creating the values of the remaining parameters required to instantiate the class
             var count = await source.CountAsync();  // Method to get the total of rows in AppDbContext.Cities
 
-
-            if(ApiResultsMethods.PropertyIsNotNullAndValid(sortOrder))   // If Property is NOT Null AND Property is Valid
+            // Order the Data based on sortColumn Input
+            if(IsValidAndNotNullProperty(sortColumn))   // If Property is NOT Null AND Property is Valid
             {
-                    if (!string.IsNullOrEmpty(sortOrder) && sortOrder.ToUpper() == "ASC")
-                    {
-                        sortOrder = "ASC";
-                    }
-                    else
-                    {
-                        sortOrder = "DESC";
-                    }
-
-                    source = source.OrderBy(
-                        string.Format(
-                            "{0} {1}",
-                            sortColumn,
-                            sortOrder)
-                        );
+                if (IsNotNullProperty(sortOrder) && sortOrder!.ToUpper() == "ASC")
+                {
+                    sortOrder = "ASC";
+                }
+                else
+                {
+                    sortOrder = "DESC";
+                }
+                source = source.OrderBy(string.Format("{0} {1}", sortColumn, sortOrder));
             }
 
-            source = source                         // Using Linq queries on the AppDbContext
+            // Additional LINQ after sorting the DB
+            source = source                         
                 .Skip(pageIndex * pageSize)         // Skip the first N Values on the Db
                 .Take(pageSize);                    // Take the first N Values on the Db after the skipped values
-            
             
             var data = await source.ToListAsync();  // Getting a List of the Values taken
 
