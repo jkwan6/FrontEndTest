@@ -1,4 +1,5 @@
-﻿using FrontEndTestAPI.Data.ApiResults;
+﻿using AutoMapper;
+using FrontEndTestAPI.Data.ApiResults;
 using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.DataTransferObjects;
@@ -7,16 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FrontEndTestAPI.DataServices
 {
-    public class CityService
+    public class CityService : ICityService
     {
         private readonly ApplicationDbContext _context;
-
-        public CityService(ApplicationDbContext context)
+        private readonly IMapper _mapper;    
+            
+        public CityService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<ActionResult<ApiResult<CityDTO>>> GetCities(
+        public async Task<ActionResult<ApiResult<CityDTO>>> GetCitiesAsync(
         int pageIndex, //Parameters from Front-End Via Model Binding
         int pageSize) //Parameters from Front-End Via Model Binding
 
@@ -24,6 +27,9 @@ namespace FrontEndTestAPI.DataServices
             // The Async Method returns and ApiResult<City> Instantiation
             // The return that instantiation, you call the static class on ApiResult
             // CreateAsync returns an ApiResult<City>
+
+            ApiResult<CityDTO>.CreateAsync(_context.Cities.ToListAsync());
+
             return await ApiResult<CityDTO>.CreateAsync(
                 _context.Cities.AsNoTracking().Select(c => new CityDTO
                 {
@@ -36,10 +42,10 @@ namespace FrontEndTestAPI.DataServices
                 }),
                 pageIndex,
                 pageSize
-                );
+                ); ;
         }
 
-        public async Task<ActionResult<City>> GetCity(int id)
+        public async Task<ActionResult<City>> GetCityAsync(int id)
         {
             var city = await _context.Cities.FindAsync(id);
 

@@ -283,3 +283,6 @@ C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\runtimes\unix\lib\net6
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\AutoMapper.dll
+C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll

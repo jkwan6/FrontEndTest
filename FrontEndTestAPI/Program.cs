@@ -25,7 +25,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         )
     );
 
-builder.Services.AddScoped<CityService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
+
+builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<CountryService>();
 
 var app = builder.Build();
