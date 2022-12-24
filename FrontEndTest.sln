@@ -7,7 +7,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEndTest", "FrontEndTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEndTestAPI", "FrontEndTestAPI\FrontEndTestAPI.csproj", "{CD4181EF-343F-4941-8584-CED1C5AADC35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndTestApi.Tests", "FrontEndTestApi.Tests\FrontEndTestApi.Tests.csproj", "{8783B469-C7A6-40C4-BE44-33AC0EB29E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEndTestApi.Tests", "FrontEndTestApi.Tests\FrontEndTestApi.Tests.csproj", "{8783B469-C7A6-40C4-BE44-33AC0EB29E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

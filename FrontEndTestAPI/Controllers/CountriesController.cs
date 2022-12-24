@@ -10,6 +10,9 @@ using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.DataTransferObjects;
 using FrontEndTestAPI.Data.ApiResult;
 using FrontEndTestAPI.DataServices;
+using System.Drawing;
+using FrontEndTestAPI.Data_Models.POCO;
+using FrontEndTestAPI.DbAccessLayer.DataServices;
 
 namespace FrontEndTestAPI.Controllers
 {
@@ -17,22 +20,25 @@ namespace FrontEndTestAPI.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
+        #region Properties
         private readonly ApplicationDbContext _context; // Properties
-        private readonly CountryService _service;       // Properties
+        private readonly ICountryService _service;       // Properties
+        #endregion
 
-        public CountriesController(ApplicationDbContext context, CountryService service)    // Constructor
+        #region DI Contructor
+        public CountriesController(ApplicationDbContext context, ICountryService service)    // Constructor
         {
             _context = context;     // DI Injection
             _service = service;     // DI Injection
         }
+        #endregion
 
         // GET: Country List
         [HttpGet]
         public async Task<ActionResult<ApiResult<CountryDTO>>> GetCountries(
-           int pageIndex = 0,       // Properties from Front-End via Model Binding
-           int pageSize = 10)       // Properties from Front-End via Model Binding
+            [FromQuery] PageParameters pageParams)
         {
-            Task<ActionResult<ApiResult<CountryDTO>>> result = _service.GetCountries(pageIndex, pageSize);  // Calls the Service Layer
+            var result = _service.GetCountriesAsync(pageParams);  // Calls the Service Layer
             return await result;                                                                            // Returns the Results
         }
 
@@ -40,7 +46,7 @@ namespace FrontEndTestAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Country>> GetCountry(int id)
         {
-            Task<ActionResult<Country>> result = _service.GetCountry(id);   // Calls the Service Layer 
+            Task<ActionResult<Country>> result = _service.GetCountryAsync(id);   // Calls the Service Layer 
             if (result is null) { return NotFound(); }                      // Check is Result is Null
             return await result;                                            // Returns Result if not Null
         }

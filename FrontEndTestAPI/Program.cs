@@ -1,5 +1,6 @@
 using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.DataServices;
+using FrontEndTestAPI.DbAccessLayer.DataServices;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -28,7 +29,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
 
 builder.Services.AddScoped<ICityService, CityService>();
-builder.Services.AddScoped<CountryService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+//builder.Services.AddScoped<CountryService>();
 
 var app = builder.Build();
 

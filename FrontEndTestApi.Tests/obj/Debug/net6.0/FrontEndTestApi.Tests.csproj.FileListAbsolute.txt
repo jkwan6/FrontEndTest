@@ -14,6 +14,8 @@ C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\FrontEndTestApi.
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\FrontEndTestApi.Tests.runtimeconfig.json
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\FrontEndTestApi.Tests.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\FrontEndTestApi.Tests.pdb
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\AutoMapper.dll
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Azure.Core.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Azure.Identity.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Castle.Core.dll
@@ -21,6 +23,8 @@ C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\EPPlus.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Humanizer.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\MessagePack.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\MessagePack.Annotations.dll
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Web.Http.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Microsoft.Build.dll
@@ -85,6 +89,7 @@ C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Microsoft.Visual
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Moq.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\NuGet.Common.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\NuGet.Configuration.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\NuGet.DependencyResolver.Core.dll
@@ -105,6 +110,7 @@ C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Compositi
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Drawing.Common.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Linq.Dynamic.Core.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Memory.Data.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Runtime.Caching.dll
 C:\Projects\FrontEndTest\FrontEndTestApi.Tests\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
