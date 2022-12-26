@@ -53,25 +53,15 @@ namespace FrontEndTestAPI.Controllers
             return result;                                              // Returns Value
         }
 
-
-
-
-
         // GET: Individual City
         // Returns a Single JSON Object containing a single City
         [HttpGet("{id}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
-            var city = await _service.GetCityAsync(id);           // Calls the Service Layer
-            if (city is null) { return NotFound(); }        // Check if City is Null
-            return city;                          // Returns City if not Null
+            var city = await _service.GetCityAsync(id);             // Calls the Service Layer
+            if (city is null) { return NotFound(); }                // Check if City is Null
+            return city;                                            // Returns City if not Null
         }
-
-
-
-
-
-
 
         // PUT: api/Cities/5
         // Allow us to modify an Existing City

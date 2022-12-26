@@ -40,7 +40,7 @@ namespace FrontEndTestApi.Tests.Service
             };
 
             // ACT --> Calling the GetCity Method on the Class
-            var test = _service.GetCitiesAsync(pageParams);
+            var test = await _service.GetCitiesAsync(pageParams);
 
             Assert.NotNull(test);
 

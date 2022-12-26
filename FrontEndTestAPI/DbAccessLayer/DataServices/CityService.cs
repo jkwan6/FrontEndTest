@@ -24,7 +24,6 @@ namespace FrontEndTestAPI.DataServices
         public async Task<ActionResult<ApiResult<CityDTO>>>GetCitiesAsync
             (PageParameters pageParams)                                                     // Params from Model Binding
         {
-
             var dtoObject = _context.Cities.AsNoTracking().Select(c => new CityDTO
             {
                 Id = c.Id,                          // Similar

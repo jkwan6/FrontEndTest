@@ -12,7 +12,7 @@ namespace FrontEndTestAPI.DataServices
     public class CountryService: ICountryService
     {
         private readonly ApplicationDbContext _context;         // Properties
-        public CountryService(ApplicationDbContext context)     // Ctor
+        public CountryService(ApplicationDbContext context)     // Constructor
         {
             _context = context;
         }

@@ -21,8 +21,8 @@ namespace FrontEndTestAPI.Controllers
     public class CountriesController : ControllerBase
     {
         #region Properties
-        private readonly ApplicationDbContext _context; // Properties
-        private readonly ICountryService _service;       // Properties
+        private readonly ApplicationDbContext _context;     // Properties
+        private readonly ICountryService _service;          // Properties
         #endregion
 
         #region DI Contructor
@@ -42,13 +42,13 @@ namespace FrontEndTestAPI.Controllers
             return await result;                                                                            // Returns the Results
         }
 
-        // GET: Individual City
+        // GET: Individual Country
         [HttpGet("{id}")]
         public async Task<ActionResult<Country>> GetCountry(int id)
         {
-            Task<ActionResult<Country>> result = _service.GetCountryAsync(id);   // Calls the Service Layer 
-            if (result is null) { return NotFound(); }                      // Check is Result is Null
-            return await result;                                            // Returns Result if not Null
+            Task<ActionResult<Country>> result = _service.GetCountryAsync(id);      // Calls the Service Layer 
+            if (result is null) { return NotFound(); }                              // Check is Result is Null
+            return await result;                                                    // Returns Result if not Null
         }
 
         // PUT: api/Countries/5
