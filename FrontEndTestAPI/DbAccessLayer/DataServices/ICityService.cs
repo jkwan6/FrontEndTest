@@ -9,6 +9,6 @@ namespace FrontEndTestAPI.DataServices
     public interface ICityService
     {
         Task<ActionResult<ApiResult<CityDTO>>> GetCitiesAsync(PageParameters pageParams);
-        Task<ActionResult<City>> GetCityAsync(int id);
+        Task<ActionResult<CityDTO>> GetCityAsync(int id);
     }
 }

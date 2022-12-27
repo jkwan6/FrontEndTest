@@ -11,11 +11,11 @@ namespace FrontEndTestAPI.Profiles
     {
         public CityProfile() // Put the mapping configuration in the constructor
         {
-            CreateMap<City, CityDTO>().
-                ForMember(
-                    dest => dest.CountryName,
-                    opt => opt.MapFrom(src => src.Country!.Name)
-                );
+            CreateMap<City, CityDTO>();
+                //.ForMember(
+                //    dest => dest.CountryName, opt => opt.MapFrom(src => src.Country!.Name)
+                //);
+
 
 
             CreateMap<City, ApiResult<CityDTO>>();
