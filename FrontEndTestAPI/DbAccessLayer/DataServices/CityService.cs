@@ -129,7 +129,18 @@ namespace FrontEndTestAPI.DataServices
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
+        public async Task<HttpResponseMessage> DeleteCityAsync(int id)
+        {
+            var city = await _context.Cities.FindAsync(id);
+            if (city == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
 
+            _context.Cities.Remove(city);
+            await _context.SaveChangesAsync();
 
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
     }
 }

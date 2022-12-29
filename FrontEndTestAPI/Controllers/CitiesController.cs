@@ -24,17 +24,13 @@ namespace FrontEndTestAPI.Controllers
     public class CitiesController : ControllerBase
     {
         #region Properties 
-        private readonly ApplicationDbContext _context;     // Properties
         private readonly ICityService _service;             // Properties
-        private readonly IMapper _mapper;                   // Properties
         #endregion
 
         #region Constructor / DI Injection
         public CitiesController(ApplicationDbContext context, ICityService service, IMapper mapper)
         {
-            _context = context;
             _service = service;
-            _mapper = mapper;
         }
         #endregion
 
@@ -94,20 +90,12 @@ namespace FrontEndTestAPI.Controllers
         }
         #endregion
 
-        #region Http Delete(Id) Method
+        #region Http Delete(Id) Method  || Using Service Layer
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
-            if (city == null)
-            {
-                return NotFound();
-            }
-
-            _context.Cities.Remove(city);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var result = await _service.DeleteCityAsync(id);
+            return (IActionResult)result;
         }
         #endregion
     }

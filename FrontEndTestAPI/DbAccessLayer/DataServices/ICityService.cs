@@ -12,5 +12,6 @@ namespace FrontEndTestAPI.DataServices
         Task<ActionResult<CityDTO>> GetCityAsync(int id);
         Task<HttpResponseMessage> PutCityAsync(int id, City city);
         Task<HttpResponseMessage> PostCityAsync(City city);
+        Task<HttpResponseMessage> DeleteCityAsync(int id);
     }
 }
