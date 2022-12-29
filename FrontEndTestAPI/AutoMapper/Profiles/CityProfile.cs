@@ -16,8 +16,6 @@ namespace FrontEndTestAPI.Profiles
                 //    dest => dest.CountryName, opt => opt.MapFrom(src => src.Country!.Name)
                 //);
 
-
-
             CreateMap<City, ApiResult<CityDTO>>();
             CreateMap<PageParameters, CityService>();
         }

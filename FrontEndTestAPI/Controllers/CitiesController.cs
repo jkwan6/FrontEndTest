@@ -38,7 +38,7 @@ namespace FrontEndTestAPI.Controllers
         }
         #endregion
 
-        #region Http Get All Method
+        #region Http Get All Method     || Using Service Layer
         // GET: City List
         // Originally Returned a JSON Array of all the Cities in the Database
         // Task<ActionResult> is needed for Async Stuff
@@ -55,69 +55,46 @@ namespace FrontEndTestAPI.Controllers
         }
         #endregion
 
-        #region Http Get(Id) Method
+        #region Http Get(Id) Method     || Using Service Layer
         // GET: Individual City
         // Returns a Single JSON Object containing a single City
         [HttpGet("{id}")]
         public async Task<ActionResult<CityDTO>> GetCity(int id)
         {
             var city = await _service.GetCityAsync(id);             // Calls the Service Layer
-            if (city is null) { return NotFound(); }                // Check if City is Null
-            return city;                                            // Returns City if not Null
+            return city is null ? NotFound() : Ok(city);
+            #region Non-Ternary
+            //if (city is null) { return NotFound(); }                // Check if City is Null
+            //return city;                                            // Returns City if not Null
+            #endregion
         }
         #endregion
 
-        #region Http Put(Id) Method
+        #region Http Put(Id) Method     || Using Service Layer
         // PUT: api/Cities/5
         // Allow us to modify an Existing City
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCity(int id, City city)     // Id is coming from the Url Route
         {
-            if (id != city.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(city).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var result = await _service.PutCityAsync(id, city);
+            return (IActionResult)result;
         }
         #endregion
 
-        #region Http Post(Model) Method
+        #region Http Post(Model) Method || Using Service Layer
         // POST: api/Cities
         // Allow us to add a new City
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<City>> PostCity(City city)
         {
-            _context.Cities.Add(city);
-            await _context.SaveChangesAsync();
-
+            var result = await _service.PostCityAsync(city);
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
         }
         #endregion
 
         #region Http Delete(Id) Method
-        // DELETE: api/Cities/5
-        // Allow us to delete an Existing City
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(int id)
         {
@@ -133,10 +110,5 @@ namespace FrontEndTestAPI.Controllers
             return NoContent();
         }
         #endregion
-
-        private bool CityExists(int id)
-        {
-            return _context.Cities.Any(e => e.Id == id);
-        }
     }
 }

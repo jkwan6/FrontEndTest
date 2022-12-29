@@ -7,6 +7,7 @@ using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace FrontEndTestAPI.DataServices
 {
@@ -83,10 +84,50 @@ namespace FrontEndTestAPI.DataServices
             return cityDTO!;
         }
 
-        //public async Task<ActionResult<CityDTO>> PutCityAsync(City city)
-        //{
-        //    _context.Entry(city).State = EntityState.Modified;
-        //}
+        public async Task<HttpResponseMessage> PutCityAsync(int id, City city)
+        {
+            if (id != city.Id) { return new HttpResponseMessage(HttpStatusCode.BadRequest); }
+
+            _context.Entry(city).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CityExists(id))
+                {
+                    return new HttpResponseMessage(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+
+            // Internal Method
+            bool CityExists(int id)
+            {
+                return _context.Cities.Any(e => e.Id == id);
+            }
+        }
+
+        public async Task<HttpResponseMessage> PostCityAsync(City city)
+        {
+            try
+            {
+                _context.Cities.Add(city);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw;
+            }
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
 
 
 
