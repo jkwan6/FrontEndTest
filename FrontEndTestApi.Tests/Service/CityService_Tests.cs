@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using Autofac.Core;
+using AutoMapper;
 using FrontEndTestApi.Tests.Controllers.MockObjects;
 using FrontEndTestAPI.Controllers;
 using FrontEndTestAPI.Data.ApiResult;
@@ -23,31 +25,35 @@ namespace FrontEndTestApi.Tests.Service
 {
     public class CityService_Tests
     {
+        private readonly IContainer _container;
+
+        public CityService_Tests()  // Constructor acting as the DI Container
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<DbMock>().As<IDbMock>().InstancePerLifetimeScope();    // Scoped DI
+            _container = builder.Build();
+        }
+
         [Fact]
         public async void GetCities()
         {
-            var inMemoryDb = DbMock.InMemoryDb();
+            // ARRANGE
+            var dbMockPrep = _container.Resolve<IDbMock>();
+            var dbMock = dbMockPrep.InMemoryDb();
             var mockMapper = new Mock<IMapper>();
-            var _service = new CityService(inMemoryDb, mockMapper.Object);
-            var pageParams = new PageParameters()
-            {
-                filterColumn = null,
-                filterQuery = null,
-                pageIndex = 0,
-                pageSize = 10,
-                sortColumn = null,
-                sortOrder = null
-            };
+
+            var _service = new CityService(dbMock, mockMapper.Object);
+            var pageParams = new PageParameters() 
+            { filterColumn = null, filterQuery = null, pageIndex = 0, pageSize = 45, sortColumn = null, sortOrder = null };
 
             // ACT --> Calling the GetCity Method on the Class
-            var test = await _service.GetCitiesAsync(pageParams);
+            var methodOutput = await _service.GetCitiesAsync(pageParams);
+            var methodOutputCount = methodOutput.Value!.Data.Count();
+            var dbContextCount = dbMock.Cities.Count();
 
-            Assert.NotNull(test);
-
-            //Task<ActionResult<ApiResult<CityDTO>>> city_existing = _service.GetCities(0, 10);
 
             // ASSERT --> Asserting the Values that we are expecting
-
+            Assert.Equal<int>(pageParams.pageSize, methodOutputCount);
         }
     }
 }

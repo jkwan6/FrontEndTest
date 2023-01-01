@@ -13,6 +13,7 @@ using FrontEndTestAPI.DataServices;
 using System.Drawing;
 using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DbAccessLayer.DataServices;
+using Azure;
 
 namespace FrontEndTestAPI.Controllers
 {
@@ -21,14 +22,12 @@ namespace FrontEndTestAPI.Controllers
     public class CountriesController : ControllerBase
     {
         #region Properties
-        private readonly ApplicationDbContext _context;     // Properties
         private readonly ICountryService _service;          // Properties
         #endregion
 
         #region DI Contructor
-        public CountriesController(ApplicationDbContext context, ICountryService service)    // Constructor
+        public CountriesController(ICountryService service)    // Constructor
         {
-            _context = context;     // DI Injection
             _service = service;     // DI Injection
         }
         #endregion
@@ -60,8 +59,9 @@ namespace FrontEndTestAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCountry(int id, Country country)
         {
-            var result = await _service.PutCountryAsync(id, country);
-            return (IActionResult)result;
+            var response = await _service.PutCountryAsync(id, country);
+            var result = new ObjectResult(response.Content);
+            return result;
         }
         #endregion
 
@@ -80,8 +80,9 @@ namespace FrontEndTestAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var result = _service.DeleteCountryAsync(id);
-            return (IActionResult)result;
+            var response = await _service.DeleteCountryAsync(id);
+            var result = new ObjectResult(response.Content);
+            return result;
         }
         #endregion
     }
