@@ -14,6 +14,5 @@ namespace FrontEndTestAPI.DataTransferObjects
         [JsonPropertyName("iso3")]
         public string ISO3 { get; set; } = null!;
         public int CitiesCount { get; set; }
-
     }
 }

@@ -142,5 +142,17 @@ namespace FrontEndTestAPI.DataServices
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
+
+        public bool IsDupeCity(City city)
+        {
+            var isDupeCity = _context.Cities.Any( e =>
+                e.Name == city.Name
+            &&  e.Lat == city.Lat
+            &&  e.Lon == city.Lon
+            &&  e.CountryId == city.CountryId
+            &&  e.Id != city.Id);
+
+            return isDupeCity;
+        }
     }
 }

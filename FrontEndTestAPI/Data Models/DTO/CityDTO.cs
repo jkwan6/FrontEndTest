@@ -11,8 +11,7 @@ namespace FrontEndTestAPI.DataTransferObjects
         public decimal Lat { get; set; }
         public decimal Lon { get; set; }
         public int CountryId { get; set; }
-        public string? CountryName { get; set; } = null!;   // Difference between DTO and Entity
-        // Only the Country Name going to be computed, not the whole Entity
+        public string? CountryName { get; set; } = null!;   // Prop can be Mapped via Flattening
     }
 
 }

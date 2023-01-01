@@ -13,5 +13,6 @@ namespace FrontEndTestAPI.DataServices
         Task<HttpResponseMessage> PutCityAsync(int id, City city);
         Task<HttpResponseMessage> PostCityAsync(City city);
         Task<HttpResponseMessage> DeleteCityAsync(int id);
+        bool IsDupeCity(City city);
     }
 }

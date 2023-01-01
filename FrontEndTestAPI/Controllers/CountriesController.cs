@@ -33,85 +33,56 @@ namespace FrontEndTestAPI.Controllers
         }
         #endregion
 
-        // GET: Country List
+        #region Http Get All Method || Using Service Layer
         [HttpGet]
         public async Task<ActionResult<ApiResult<CountryDTO>>> GetCountries(
             [FromQuery] PageParameters pageParams)
         {
-            var result = _service.GetCountriesAsync(pageParams);  // Calls the Service Layer
+            var result = _service.GetCountriesAsync(pageParams);
             return await result;                                                                            // Returns the Results
         }
+        #endregion
 
-        // GET: Individual Country
+        #region Http Get(Id) Method || Using Service Layer
         [HttpGet("{id}")]
         public async Task<ActionResult<Country>> GetCountry(int id)
         {
-            Task<ActionResult<Country>> result = _service.GetCountryAsync(id);      // Calls the Service Layer 
-            if (result is null) { return NotFound(); }                              // Check is Result is Null
-            return await result;                                                    // Returns Result if not Null
+            ActionResult<Country> result = await _service.GetCountryAsync(id);      // Calls the Service Layer 
+            return result is null ? NotFound() : result;
+            #region Non-Ternary Variation
+            //if (result is null) { return NotFound(); }
+            //return result;
+            #endregion
         }
+        #endregion
 
-        // PUT: api/Countries/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        #region Http Put(Id) Method || Using Service Layer
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCountry(int id, Country country)
         {
-            if (id != country.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(country).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CountryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var result = await _service.PutCountryAsync(id, country);
+            return (IActionResult)result;
         }
+        #endregion
 
+        #region Http Post(Model) Method || Using Service Layer
         // POST: api/Countries
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Country>> PostCountry(Country country)
         {
-            _context.Countries.Add(country);
-            await _context.SaveChangesAsync();
-
+            var result = await _service.PostCountryAsync(country);
             return CreatedAtAction("GetCountry", new { id = country.Id }, country);
         }
+        #endregion
 
-        // DELETE: api/Countries/5
+        #region Http Delete(Id) Method || Using Service Layer
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
-            {
-                return NotFound();
-            }
-
-            _context.Countries.Remove(country);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            var result = _service.DeleteCountryAsync(id);
+            return (IActionResult)result;
         }
-
-        private bool CountryExists(int id)
-        {
-            return _context.Countries.Any(e => e.Id == id);
-        }
+        #endregion
     }
 }

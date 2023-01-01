@@ -98,5 +98,15 @@ namespace FrontEndTestAPI.Controllers
             return (IActionResult)result;
         }
         #endregion
+
+        #region  Http Post IsDupeCity(Model) || Using Service Layer
+        [HttpPost]
+        [Route("isDupeCity")]
+        public bool IsDupeCity(City city)
+        {
+            var results = _service.IsDupeCity(city);
+            return results;
+        }
+        #endregion
     }
 }

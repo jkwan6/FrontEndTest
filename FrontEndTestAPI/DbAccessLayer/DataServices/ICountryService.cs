@@ -10,7 +10,8 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
     {
         Task<ActionResult<ApiResult<CountryDTO>>> GetCountriesAsync(PageParameters pageParams);
         Task<ActionResult<Country>> GetCountryAsync(int id);
-
-
+        Task<HttpResponseMessage> PutCountryAsync(int id, Country country);
+        Task<HttpResponseMessage> PostCountryAsync(Country country);
+        Task<HttpResponseMessage> DeleteCountryAsync(int id);
     }
 }
