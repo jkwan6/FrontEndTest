@@ -13,8 +13,6 @@ C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\EPPlus.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Humanizer.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\MessagePack.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\MessagePack.Annotations.dll
-C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\System.Net.Http.Formatting.dll
-C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\System.Web.Http.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.Build.dll
@@ -73,7 +71,6 @@ C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.VisualStudio
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Mono.TextTemplating.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\NuGet.Common.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\NuGet.Configuration.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\NuGet.DependencyResolver.Core.dll
@@ -292,3 +289,5 @@ C:\Projects\FrontEndTest\FrontEndTestAPI\obj\Debug\net6.0\ref\FrontEndTestAPI.dl
 C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\System.Reflection.MetadataLoadContext.dll
 C:\Projects\FrontEndTest\FrontEndTestAPI\obj\Debug\net6.0\FrontEndTestAPI.RazorAssemblyInfo.cache
 C:\Projects\FrontEndTest\FrontEndTestAPI\obj\Debug\net6.0\FrontEndTestAPI.RazorAssemblyInfo.cs
+C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Projects\FrontEndTest\FrontEndTestAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

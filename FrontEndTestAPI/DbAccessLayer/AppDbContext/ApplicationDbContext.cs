@@ -1,4 +1,6 @@
 ﻿using FrontEndTestAPI.Data.Models;
+using FrontEndTestAPI.DbAccessLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FrontEndTestAPI.Data.AppDbContext
@@ -6,7 +8,7 @@ namespace FrontEndTestAPI.Data.AppDbContext
 
     // The Application Db Context is the class that is in charge of all the entities during runtime
     // Gotta Register our Entities in the AppDbContext
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> // To configure the App to Use Identity, need to Derive from this Class
     {
         // Will use the Ctor of the base class with no parameters
         public ApplicationDbContext() : base()
