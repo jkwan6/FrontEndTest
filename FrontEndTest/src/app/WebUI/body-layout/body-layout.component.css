@@ -1,0 +1,25 @@
+.sidenav-specs{
+    width:240px;
+}
+
+.flex-container{
+/*    display:flex;
+    align-content:center;*/
+}
+
+.body-content{
+    width:1500px;
+    align-content:center;
+}
+
+
+.body-height{
+    height:100%;
+    overflow:auto;
+}
+
+.overflow-opt {
+  overflow:hidden;
+}
+
+

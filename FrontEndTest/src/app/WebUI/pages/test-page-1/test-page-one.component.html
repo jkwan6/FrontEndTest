@@ -1,0 +1,197 @@
+<div class="flex-container">
+
+  <mat-form-field class="flex-item-1" [hidden]="!Cities">
+    <input matInput #filter (keyup)="loadData(filter.value)"
+           placeholder="Filter by name" />
+  </mat-form-field>
+
+  <a mat-button
+     class="default-button-configs flex-item-2"
+     color="secondary"
+     [routerLink]="['/testpageonecreate']">
+    Add City
+  </a>
+
+</div>
+
+<table mat-table
+       [dataSource]="Cities"
+       [hidden]="!Cities"
+       matSort (matSortChange)="loadData()"
+       [matSortActive]="defaultSortColumn"
+       [matSortDirection]="defaultSortOrder"
+       matSortDisableClear>
+  <tr>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let ICity"> {{ ICity.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let ICity">
+        <a [routerLink]="['/testpageone', ICity.id]">{{ICity.name}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lat">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lat</th>
+      <td mat-cell *matCellDef="let ICity">{{ICity.lat}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lon">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Lon</th>
+      <td mat-cell *matCellDef="let ICity">{{ICity.lon}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="countryName">     <!-- Country Column -->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+      <td mat-cell *matCellDef="let ICity">{{ICity.countryName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">          <!-- Delete Button -->
+      <th mat-header-cell
+          *matHeaderCellDef
+          class="delete-column-config"
+          disableSort>Delete
+      </th>
+
+      <td mat-cell
+          *matCellDef="let ICity"
+          class="delete-column-config">
+
+        <a mat-button
+           (click)="deleteData(ICity.id)"
+           class="default-button-configs"
+           color="secondary">
+          {{ICity.id}}
+        </a>
+
+      </td>
+    </ng-container>
+
+  </tr>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+</table>
+
+
+<mat-paginator [hidden]="!Cities"
+               (page)="getData($event)"
+               [pageSize]="10"
+               [pageSizeOptions]="[10, 15, 30]"
+
+               showFirstLastButtons>
+</mat-paginator>
+
+
+
+<!--<h1>Cities</h1>
+<p>Here's a list of cities: feel free to play with it.</p>
+<p *ngIf="!Cities"><em>Loading...</em></p>
+<table class='table table-striped' aria-labelledby="tableLabel" [hidden]="!Cities">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Lat</th>
+      <th>Lon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ICity of Cities">
+      <td>{{ ICity.id }}</td>
+      <td>{{ ICity.name }}</td>
+      <td>{{ ICity.lat }}</td>
+      <td>{{ ICity.lon }}</td>
+    </tr>
+  </tbody>
+</table>-->
+
+<p>a</p>
+
+
+p>
+<p>
+
+a
+p></p>
+
+
+p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>
+<p>a</p>

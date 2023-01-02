@@ -1,0 +1,36 @@
+.separator {
+    flex:1 1 auto;
+}
+
+/*.flex-container-no-wrap{
+    display:flex;
+    flex-wrap:nowrap;
+}
+
+.flex-container-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}*/
+
+.navbar{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.pressed {
+  background:rgba(0,0,0,.2);
+}
+
+.default-button-configs {
+  margin: 4px;
+  min-width: 50px;
+}
+.default-button-configs:hover {
+    background-color: grey;
+}
+
+
+.Pill-Button{
+    border-radius:100vw;}
+
+

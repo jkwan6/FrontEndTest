@@ -1,0 +1,85 @@
+<!--Navbar Content-->
+
+<div class="navbar">
+
+  <mat-toolbar color="secondary">
+
+    <mat-toolbar-row class="content-width">
+
+      <span class="separator flex-container-wrap">
+
+        <button (click)="vm.isPressed = !vm.isPressed; onToggle()"
+                [ngClass]="{'pressed':vm.isPressed}"
+                mat-button
+                matTooltip="Side Navigator"
+                [matTooltipShowDelay]="showDelay.value"
+                [matTooltipHideDelay]="hideDelay.value">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/']">
+          Home
+        </a>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/testpageone']">
+          Page 1
+        </a>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/testpagetwo']">
+          Page 2
+        </a>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/testpagethree']">
+          Page 3
+        </a>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/testpagefour']">
+          Page 4
+        </a>
+
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/testpagefive']">
+          Page 5
+        </a>
+
+      </span>
+
+
+      <span class="flex-container-no-wrap">
+        <a mat-button
+           class="default-button-configs"
+           color="secondary"
+           [routerLink]="['/']">
+          Sign Up
+        </a>
+
+        <a mat-flat-button
+           class="Pill-Button"
+           color="secondary"
+           [routerLink]="['/']">
+          Log In
+        </a>
+      </span>
+
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+
+</div>

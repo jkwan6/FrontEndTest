@@ -1,0 +1,63 @@
+/*
+    GLOBAL STYLES IN THIS FILES
+    ALSO IMPORT OTHER STYLE FILES
+*/
+
+html, body{
+    margin:0;
+    height:100%;
+    width:100%;
+}
+
+
+/**{
+    border: solid;
+    border-width:1px;
+    border-color:red;
+}*/
+
+body {
+/*  height:100%;*/
+/*  padding-top: 65px;*/
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: rgb(250, 250, 250);
+}
+
+.content-width {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+}
+
+
+
+
+/*@media (max-width: 599px) {
+  body {
+    padding-top: 55px;
+  }
+}
+
+
+@media (min-wdth:600px) and (max-width: 979px) {
+  body {
+    padding-top: 60px;
+  }
+}*/
+
+::-webkit-scrollbar{
+    width:0px;
+}
+
+/*::-webkit-scrollbar-track{
+    background:hsl(235 0% 60% /1);
+}
+
+::-webkit-scrollbar-thumb{
+    background:hsl(235 0% 40%/1);
+    border-radius:100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(235 0% 25%/1);
+}*/

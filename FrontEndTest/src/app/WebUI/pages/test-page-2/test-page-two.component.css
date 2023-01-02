@@ -1,0 +1,55 @@
+.default-button-configs {
+  background-color: bisque;
+  justify-content: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+  /*flex:1;*/
+}
+
+.flex-item-1 {
+  flex: 0 1 400px;
+}
+
+.flex-item-2 {
+  align-self: center;
+  margin-left: auto;
+  background-color: grey;
+  border-radius: 100vw;
+}
+
+section {
+  display: table;
+}
+
+
+table.mat-table {
+  width: 100%;
+}
+
+/*tr{
+    display:flex;
+}*/
+
+.col-1 {
+  flex: 1;
+}
+
+.col-2 {
+  flex: 1;
+}
+
+.col-3 {
+  flex: 1;
+}
+
+.col-4 {
+  flex: 1;
+}
+
+.col-5 {
+  flex: 1;
+}
