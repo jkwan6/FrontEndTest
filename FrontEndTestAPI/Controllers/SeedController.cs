@@ -1,5 +1,8 @@
 ﻿using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data.Models;
+using FrontEndTestAPI.Data_Models.DTO;
+using FrontEndTestAPI.DbAccessLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -13,14 +16,97 @@ namespace FrontEndTestAPI.Controllers
     {
         // Properties injected via DI
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
 
 
         // Ctor with DI
-        public SeedController(ApplicationDbContext context, IWebHostEnvironment env)
+        public SeedController(
+                    ApplicationDbContext context,
+                    RoleManager<IdentityRole> roleManager,
+                    UserManager<ApplicationUser> userManager,
+                    IWebHostEnvironment env,
+                    IConfiguration configuration)
         {
             _context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
             _env = env;
+            _configuration = configuration;
+        }
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> CreateDefaultUsers()
+        {
+            string role_RegisteredUser = "RegisteredUser";                                      // Setup Default Role Names
+            string role_Administrator = "Administrator";                                        // Setup Default Role Names
+
+            if (await _roleManager.FindByNameAsync(role_RegisteredUser) == null)                // Check if Default Dont Exist Yet
+                await _roleManager.CreateAsync(new IdentityRole(role_RegisteredUser)); 
+
+            if (await _roleManager.FindByNameAsync(role_Administrator) == null)                 // Check if Default Dont Exist Yet
+                await _roleManager.CreateAsync(new IdentityRole(role_Administrator)); 
+
+
+            var addedUserList = new List<ApplicationUser>();                                    // Create a List To Track Newly Added Users
+            var email_Admin = "admin@email.com";                                                // Check If Admin User Already Exists    
+
+
+            if (await _userManager.FindByNameAsync(email_Admin) == null)
+            {
+                var user_Admin = new ApplicationUser()                                          // Create a New Admin ApplicationUser Account
+                {
+                    SecurityStamp = Guid.NewGuid().ToString(),                                  // Instantiation
+                    UserName = email_Admin,                                                     // Instantiation
+                    Email = email_Admin,                                                        // Instantiation
+                };
+
+                // insert the admin user into the DB
+                await _userManager.CreateAsync(user_Admin, _configuration["DefaultPasswords:Administrator"]);
+
+                await _userManager.AddToRoleAsync(user_Admin, role_RegisteredUser);             // Assign "RegisteredUser" Role
+                await _userManager.AddToRoleAsync(user_Admin, role_Administrator);              // Assign "Administrator" Role
+
+                user_Admin.EmailConfirmed = true;                                               // Confirm Email
+                user_Admin.LockoutEnabled = false;                                              // Remove Lockout
+
+                addedUserList.Add(user_Admin);                                                  // Add Admin User to UserList
+            }
+
+            var email_User = "user@email.com";
+
+            if (await _userManager.FindByNameAsync(email_User) == null)                         // Check If Standard User Already Exists
+            {
+                var user_User = new ApplicationUser()                                           // Create a new Application User Account
+                {
+                    SecurityStamp = Guid.NewGuid().ToString(),                                  // Instantiation
+                    UserName = email_User,                                                      // Instantiation
+                    Email = email_User                                                          // Instantiation
+                };
+
+                // insert the standard user into the DB
+                await _userManager.CreateAsync(user_User, _configuration["DefaultPasswords:RegisteredUser"]);
+
+                await _userManager.AddToRoleAsync(user_User, role_RegisteredUser);              // Assign "RegisteredUser" Role
+
+                user_User.EmailConfirmed = true;                                                // Confirm
+                user_User.LockoutEnabled = false;                                               // Remove Lockout
+
+                addedUserList.Add(user_User);                                                   // Add Standard User to UserList
+            }
+
+            // if we added at least one user, persist the changes into the DB
+            if (addedUserList.Count > 0)
+                await _context.SaveChangesAsync();
+            return new JsonResult(new
+            {
+                Count = addedUserList.Count,
+                Users = addedUserList
+            });
         }
 
 

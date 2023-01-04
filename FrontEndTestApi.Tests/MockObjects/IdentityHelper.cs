@@ -1,0 +1,48 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FrontEndTestApi.Tests.MockObjects
+{
+    public static class IdentityHelper
+    {
+        // Creating a Role Manager
+        public static RoleManager<TIdentityRole> GetRoleManager<TIdentityRole>(
+            IRoleStore<TIdentityRole> roleStore) where TIdentityRole : IdentityRole
+        {
+            return new RoleManager<TIdentityRole>(
+                roleStore,
+                new IRoleValidator<TIdentityRole>[0],
+                new UpperInvariantLookupNormalizer(),
+                new Mock<IdentityErrorDescriber>().Object,
+                new Mock<ILogger<RoleManager<TIdentityRole>>>(
+                ).Object);
+        }
+
+        // Creating a User Manager
+        public static UserManager<TIDentityUser> GetUserManager<TIDentityUser>(
+            IUserStore<TIDentityUser> userStore) where TIDentityUser : IdentityUser
+        {
+            return new UserManager<TIDentityUser>(
+            userStore,
+            new Mock<IOptions<IdentityOptions>>().Object,
+            new Mock<IPasswordHasher<TIDentityUser>>().Object,
+            new IUserValidator<TIDentityUser>[0],
+            new IPasswordValidator<TIDentityUser>[0],
+            new UpperInvariantLookupNormalizer(),
+            new Mock<IdentityErrorDescriber>().Object,
+            new Mock<IServiceProvider>().Object,
+            new Mock<ILogger<UserManager<TIDentityUser>>>(
+            ).Object);
+        }
+
+
+    }
+}

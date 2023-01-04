@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FrontEndTestAPI.Data.AppDbContext
 {
-
-    // The Application Db Context is the class that is in charge of all the entities during runtime
-    // Gotta Register our Entities in the AppDbContext
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> // To configure the App to Use Identity, need to Derive from this Class
     {
         // Will use the Ctor of the base class with no parameters
@@ -15,7 +12,7 @@ namespace FrontEndTestAPI.Data.AppDbContext
         {
         }
 
-        //Will use the Ctor of the base class with parameters = DbContexOptions
+        // Will use the Ctor of the base class with parameters = DbContexOptions
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }

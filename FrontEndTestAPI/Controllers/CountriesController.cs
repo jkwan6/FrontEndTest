@@ -14,6 +14,7 @@ using System.Drawing;
 using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DbAccessLayer.DataServices;
 using Azure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FrontEndTestAPI.Controllers
 {
@@ -56,6 +57,7 @@ namespace FrontEndTestAPI.Controllers
         #endregion
 
         #region Http Put(Id) Method || Using Service Layer
+        //[Authorize(Roles = "RegisteredUser")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCountry(int id, Country country)
         {
@@ -66,8 +68,7 @@ namespace FrontEndTestAPI.Controllers
         #endregion
 
         #region Http Post(Model) Method || Using Service Layer
-        // POST: api/Countries
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[Authorize(Roles = "RegisteredUser")]
         [HttpPost]
         public async Task<ActionResult<Country>> PostCountry(Country country)
         {
@@ -77,6 +78,7 @@ namespace FrontEndTestAPI.Controllers
         #endregion
 
         #region Http Delete(Id) Method || Using Service Layer
+        //[Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCountry(int id)
         {
