@@ -58,11 +58,9 @@ builder.Services.AddAuthentication(opt =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.
-    GetBytes(builder.Configuration["JwtSettings:SecurityKey"]))
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecurityKey"]))
     };
 });
-
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
