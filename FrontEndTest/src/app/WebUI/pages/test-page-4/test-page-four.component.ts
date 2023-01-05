@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-
+import * as DAT from 'dat.gui';
 
 @Component({
   selector: 'app-test-page-four',
@@ -29,6 +29,13 @@ export class TestPageFourComponent implements OnInit {
   aspect?: number;
   cameras?: [];
 
+  //////////////////////////////////////////////////
+  // Test Variables
+
+  gui?: DAT.GUI;
+  //////////////////////////////////////////////////
+
+
   @ViewChild('rendererCanvas', { static: true })
   rendererCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -37,6 +44,15 @@ export class TestPageFourComponent implements OnInit {
     this.aspect = window.innerWidth / window.innerHeight;
 
     this.ThreeJsInit();
+
+
+
+    this.gui = new DAT.GUI();
+
+
+
+
+
 
   }
 
@@ -49,7 +65,7 @@ export class TestPageFourComponent implements OnInit {
       alpha: true,
       antialias: false
     });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(window.innerWidth/1.5, window.innerHeight/1.5);
 
     // Camera Setup
     var near = 0.1;
@@ -59,7 +75,7 @@ export class TestPageFourComponent implements OnInit {
 
     // Light Setup - Light & Ambient
     this.ambient = new THREE.HemisphereLight(0xffffbb, 0x080820);
-    this.light = new THREE.DirectionalLight(0xFFFFFF, 1);
+    this.light = new THREE.DirectionalLight(0xFFFFFF, 10);
     this.light.position.set(1, 10, 10);
 
     // Controls Setup
@@ -74,7 +90,7 @@ export class TestPageFourComponent implements OnInit {
     this.box = new THREE.Mesh(geometry, material);
 
     // Loader
-    this.path = "../../../assets/models/stuff.glb"
+    this.path = "../../../assets/models/untitled10.glb"
     this.loader = new GLTFLoader();
     this.loader.load
       (
@@ -101,7 +117,7 @@ export class TestPageFourComponent implements OnInit {
   onResize() {
     this.camera!.aspect = window.innerWidth / window.innerHeight;
     this.camera?.updateProjectionMatrix();
-    this.renderer!.setSize(window.innerWidth, window.innerHeight);
+    this.renderer!.setSize(window.innerWidth/1.5, window.innerHeight/1.5);
   }
 
   // Recursive Function
