@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Cors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
         )
     );
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AngularPolicy",
+        cfg =>
+        {
+            cfg.AllowAnyHeader();
+            cfg.AllowAnyMethod();
+            cfg.WithOrigins(builder.Configuration["AllowedCORS"]);
+        });
+});
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
@@ -68,7 +80,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 
-builder.Services.AddScoped<JwtHandlerService>();        // Injecting the Concrete Implementation
+builder.Services.AddScoped<JwtCreatorService>();        // Injecting the Concrete Implementation
 
 var app = builder.Build();
 
@@ -88,6 +100,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors("AngularPolicy");
+
 app.MapControllers();
+
+// Minimal API
+app.MapMethods("/api/heartbeat", new[] { "HEAD" }, () => Results.Ok());
+
 
 app.Run();

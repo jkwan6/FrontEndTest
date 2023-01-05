@@ -26,12 +26,18 @@ export class TestPageFourComponent implements OnInit {
   controls?: OrbitControls;
   loader?: GLTFLoader;
   path?: string;
+  aspect?: number;
+  cameras?: [];
 
   @ViewChild('rendererCanvas', { static: true })
   rendererCanvas!: ElementRef<HTMLCanvasElement>;
 
   ngOnInit(): void {
+
+    this.aspect = window.innerWidth / window.innerHeight;
+
     this.ThreeJsInit();
+
   }
 
   ThreeJsInit() {
@@ -46,12 +52,14 @@ export class TestPageFourComponent implements OnInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     // Camera Setup
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.set(Math.PI, Math.PI, 5);      // Radians
+    var near = 0.1;
+    var far = 50;
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, near, far);
+    this.camera.position.set(10, 10, 5);
 
     // Light Setup - Light & Ambient
     this.ambient = new THREE.HemisphereLight(0xffffbb, 0x080820);
-    this.light = new THREE.DirectionalLight(0xFFFFFF, 10);
+    this.light = new THREE.DirectionalLight(0xFFFFFF, 1);
     this.light.position.set(1, 10, 10);
 
     // Controls Setup
@@ -66,7 +74,7 @@ export class TestPageFourComponent implements OnInit {
     this.box = new THREE.Mesh(geometry, material);
 
     // Loader
-    this.path = "../../../assets/models/untitled10.glb"
+    this.path = "../../../assets/models/stuff.glb"
     this.loader = new GLTFLoader();
     this.loader.load
       (
@@ -82,6 +90,8 @@ export class TestPageFourComponent implements OnInit {
     this.scene.add(this.light);
 
     window.addEventListener('resize', () => this.onResize() , false);
+
+    this.CamHelper(near, far);
 
     // Animation - Recursive Function
     this.update();
@@ -103,7 +113,13 @@ export class TestPageFourComponent implements OnInit {
   }
 
 
-
+  CamHelper(near:number, far:number) {
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, near, far);
+    camera.position.set(0, 0, 15);
+    const helper = new THREE.CameraHelper(camera);
+    this.scene!.add(helper);
+    helper.visible = true;
+  }
 }
 
 

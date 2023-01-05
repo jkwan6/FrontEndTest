@@ -21,6 +21,10 @@ import { BodyLayoutComponent } from './WebUI/body-layout/body-layout.component';
 import { TestPageOneCreateComponent } from './WebUI/pages/test-page-1-create/test-page-one-create.component';
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
 import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { ConnectionServiceModule, ConnectionServiceOptions, ConnectionServiceOptionsToken } from 'angular-connection-service';
+import { LoginComponent } from './WebUI/pages/login-component/login.component';
 
 // AppModule recognizes the different custom html tag selectors
 // Help organimze app into cohesive blocks of functionaility
@@ -46,17 +50,31 @@ import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.
     TestPageOneCreateComponent,
     TestPageFourComponent,
     TestPageFiveComponent,
+    LoginComponent,
   ],
   // Import other modules so that the app can work with other modules
   imports: [
+    ConnectionServiceModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ConnectionServiceOptionsToken,
+      useValue: <ConnectionServiceOptions>{
+        heartbeatUrl: environment.baseUrl + 'api/heartbeat'
+      }
+    }],
 
   // bootstraps the startup component - AppComponent is the Startup Component in this case
   bootstrap: [AppComponent]

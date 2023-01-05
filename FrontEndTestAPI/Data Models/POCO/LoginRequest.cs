@@ -2,7 +2,7 @@
 
 namespace FrontEndTestAPI.Data_Models.DTO
 {
-    public class ApplicationUserDTO
+    public class LoginRequest
     {
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; } = null!;

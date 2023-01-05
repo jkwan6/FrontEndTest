@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Scene, PerspectiveCamera } from 'three';
 import * as THREE from 'three';
+import { FormBuilder } from '@angular/forms';
 
 
 @Component({

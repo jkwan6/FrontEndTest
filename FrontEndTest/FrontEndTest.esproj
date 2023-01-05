@@ -11,6 +11,8 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\FrontEndTest</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\app\POCO\" />
     <Folder Include="src\app\service\CountryService\" />
+    <Folder Include="src\app\service\NewFolder\" />
   </ItemGroup>
 </Project>

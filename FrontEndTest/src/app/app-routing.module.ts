@@ -9,7 +9,7 @@ import { TestPageTwoDetailComponent } from './WebUI/pages/test-page-2-detail/tes
 import { TestPageOneCreateComponent } from './WebUI/pages/test-page-1-create/test-page-one-create.component';
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
 import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.component';
-
+import { LoginComponent } from './WebUI/pages/login-component/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'testpagetwo/:id', component: TestPageTwoDetailComponent },
   { path: 'testpageonecreate', component: TestPageOneCreateComponent },
   { path: 'testpagetwodetail', component: TestPageTwoDetailComponent },
-  { path: 'testpagefive', component: TestPageFiveComponent }
+  { path: 'testpagefive', component: TestPageFiveComponent },
+  { path: 'login', component: LoginComponent }
 ]
 
 

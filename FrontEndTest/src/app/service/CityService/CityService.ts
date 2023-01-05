@@ -5,10 +5,20 @@ import { BaseService } from "../BaseService";
 import { IApiResult } from './../IApiResult';
 import { ICity } from './../../model_interfaces/ICity';
 
+enum ModelBinding {
+  pageIndex = "pageIndex",
+  pageSize = "pageSize",
+  sortColumn = "sortColumn",
+  sortOrder = "sortOrder",
+  filterColumn = "filterColumn",
+  filterQuery = "filterQuery"
+}
+
 @Injectable({
   providedIn: 'root'    // Singleton bcz Injected in Root
 }) // DI Decorator
 export class CityService extends BaseService<ICity>{
+
 
   constructor(private http: HttpClient) { super(http); }
 
@@ -24,16 +34,16 @@ export class CityService extends BaseService<ICity>{
     // Http Parameters sent to Back-End for Observable
     var url = this.getUrl('api/cities');
     var params = new HttpParams()
-      .set("pageIndex", pageIndex.toString())
-      .set("pageSize", pageSize.toString())
-      .set("sortColumn", sortColumn.toString())
-      .set("sortOrder", sortOrder.toString());
+      .set(ModelBinding.pageIndex, pageIndex.toString())
+      .set(ModelBinding.pageSize, pageSize.toString())
+      .set(ModelBinding.sortColumn, sortColumn.toString())
+      .set(ModelBinding.sortOrder, sortOrder.toString());
 
     // If Query String Present
     if (filterColumn && filterQuery) {
       params = params
-        .set("filterColumn", filterColumn.toString())
-        .set("filterQuery", filterQuery.toString());
+        .set(ModelBinding.filterColumn, filterColumn.toString())
+        .set(ModelBinding.filterQuery, filterQuery.toString());
     }
 
     // Use the Parameters Above to get an Observable

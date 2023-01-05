@@ -12,24 +12,27 @@ namespace FrontEndTestAPI.Controllers
     [Route("api/[controller]")]
     public class AccountController: ControllerBase
     {
+        // Properties
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly JwtHandlerService _jwtHandler;
+        private readonly JwtCreatorService _jwtCreator;
 
+        // Constructor
         public AccountController(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
-            JwtHandlerService jwtHandler )
+            JwtCreatorService jwtHandler )
         {
             _context = context;
             _userManager = userManager;
-            _jwtHandler = jwtHandler;
+            _jwtCreator = jwtHandler;
         }
 
-
+        // Login Request will Model Bind Email and Password from HTTP Post
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(ApplicationUserDTO loginRequest)
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
+            // UserManager is from Identity Nuget
             var user = await _userManager.FindByNameAsync(loginRequest.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
             {
@@ -39,13 +42,17 @@ namespace FrontEndTestAPI.Controllers
                     message = "Invalid Email or Password."
                 });
             }
-            var secToken = await _jwtHandler.GetTokenAsync(user);
-            var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+
+            // Token Preparation
+            var tokenPrep = await _jwtCreator.GetTokenAsync(user);
+            var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
+
+            // Return JSON Object to Client
             return Ok(new LoginResult()
             {
                 success = true,
                 message = "Login Successful",
-                token = jwt
+                token = tokenToReturn
             });
         }
          

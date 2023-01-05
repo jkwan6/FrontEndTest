@@ -7,19 +7,18 @@ using System.Text;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
-    public class JwtHandlerService 
+    public class JwtCreatorService 
     {
         private readonly IConfiguration _config;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public JwtHandlerService(IConfiguration config, UserManager<ApplicationUser> userManager)
+        public JwtCreatorService(IConfiguration config, UserManager<ApplicationUser> userManager)
         {
             _config = config;
             _userManager = userManager;
-            
         }
 
-        // Method to create Tokens
+        // Method to create Tokens.  Calls the Private Method beneath
         public async Task<JwtSecurityToken> GetTokenAsync(ApplicationUser user)
         {
             var jwtOptions = new JwtSecurityToken(
@@ -33,6 +32,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             return jwtOptions;
         }
 
+        // Method To Create a Key and then Creating Signing Credentials from the Key
         private SigningCredentials GetSigningCredentials()
         {
             var key = Encoding.UTF8.GetBytes(_config["JwtSettings:SecurityKey"]);
@@ -40,7 +40,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-
+        // Method to Create the User Claims to be placed in the JWT
         private async Task<List<Claim>> GetClaimsAsync(ApplicationUser user, UserManager<ApplicationUser> userManager)
         {
             var claims = new List<Claim>

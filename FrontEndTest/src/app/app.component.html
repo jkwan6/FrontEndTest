@@ -4,6 +4,14 @@
     <app-nav-bar></app-nav-bar>
   </div>
 
+  <div class="alert alert-warning" *ngIf="!this.isOnline()">
+    <strong>WARNING</strong>: the app is currently <i>offline</i>:
+    some features that rely upon the back-end might not work asChapter 12 579
+    expected. This message will automatically disappear as soon
+    as the internet connection becomes available again.
+  </div>
+
+
   <div class="body-content">
     <app-body-layout></app-body-layout>
   </div>
