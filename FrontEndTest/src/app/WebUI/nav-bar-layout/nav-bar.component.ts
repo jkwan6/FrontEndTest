@@ -21,7 +21,7 @@ export class NavBarComponent implements OnInit {
   constructor(private sideNavService: SideNavService) { }
 
   ngOnInit(): void {
-    this.subscription = this.sideNavService.currentToggleStatus.subscribe(toggleStatus => this.toggleStatus = toggleStatus)
+    this.subscription = this.sideNavService.currentToggleStatus$.subscribe(toggleStatus => this.toggleStatus = toggleStatus)
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();

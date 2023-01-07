@@ -21,7 +21,7 @@ export class TestPageFourComponent implements OnInit {
   renderer?: THREE.Renderer;
   canvas?: HTMLCanvasElement;
   box?: THREE.Mesh;
-  ambient?: THREE.HemisphereLight;
+  ambient?: THREE.AmbientLight;
   light?: THREE.DirectionalLight;
   controls?: OrbitControls;
   loader?: GLTFLoader;
@@ -71,11 +71,13 @@ export class TestPageFourComponent implements OnInit {
     var near = 0.1;
     var far = 50;
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, near, far);
-    this.camera.position.set(10, 10, 5);
+    this.camera.position.set(-2, 1, 0);
+    this.camera.rotation.set(1, -1, -1);
+
 
     // Light Setup - Light & Ambient
-    this.ambient = new THREE.HemisphereLight(0xffffbb, 0x080820);
-    this.light = new THREE.DirectionalLight(0xFFFFFF, 10);
+    this.ambient = new THREE.AmbientLight(0x404040,5);
+    this.light = new THREE.DirectionalLight(0xFFFFFF, 1);
     this.light.position.set(1, 10, 10);
 
     // Controls Setup
@@ -90,7 +92,7 @@ export class TestPageFourComponent implements OnInit {
     this.box = new THREE.Mesh(geometry, material);
 
     // Loader
-    this.path = "../../../assets/models/untitled10.glb"
+    this.path = "../../../assets/models/googleMaps.glb"
     this.loader = new GLTFLoader();
     this.loader.load
       (

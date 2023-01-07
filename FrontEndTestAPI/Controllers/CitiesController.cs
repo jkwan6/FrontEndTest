@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FrontEndTestAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")] // Routing Rule for class
     [ApiController]
     public class CitiesController : ControllerBase

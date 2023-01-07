@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { CityService } from '../../../service/CityService/CityService';
 import { IApiResult } from '../../../service/IApiResult';
 
-enum Strings {
+enum str {
   id = "id",
   name = "name",
   lat = "lat",
@@ -30,20 +30,20 @@ export class TestPageOneComponent implements OnInit {
 
   // Angular Table Columns to Display
   public displayedColumns: string[] = [
-    Strings.id,
-    Strings.name,
-    Strings.lat,
-    Strings.lon,
-    Strings.countryName,
-    Strings.delete
+    str.id,
+    str.name,
+    str.lat,
+    str.lon,
+    str.countryName,
+    str.delete
   ];
 
   Cities!: MatTableDataSource<ICity>;  // Generic Class from AngMat Table
   defaultPageIndex: number = 0;
   defaultPageSize: number = 10;
-  defaultSortColumn: string = Strings.name;
-  defaultSortOrder: Strings.asc | Strings.desc = Strings.asc;
-  defaultFilterColumn: string = Strings.name;
+  defaultSortColumn: string = str.name;
+  defaultSortOrder: str.asc | str.desc = str.asc;
+  defaultFilterColumn: string = str.name;
   filterQuery?: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;              // ViewChild Properties

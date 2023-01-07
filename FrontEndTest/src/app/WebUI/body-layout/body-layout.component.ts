@@ -19,7 +19,7 @@ export class BodyLayoutComponent implements AfterViewInit {
   toggleStatus!: boolean;
 
   ngAfterViewInit(): void {
-    this.subscription = this.sideNavService.currentToggleStatus.subscribe(x => this.matDrawer.toggle(x.valueOf()))
+    this.subscription = this.sideNavService.currentToggleStatus$.subscribe(x => this.matDrawer.toggle(x.valueOf()))
   }
 
 

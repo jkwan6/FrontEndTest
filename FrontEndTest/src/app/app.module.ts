@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -25,7 +25,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConnectionServiceModule, ConnectionServiceOptions, ConnectionServiceOptionsToken } from 'angular-connection-service';
 import { LoginComponent } from './WebUI/pages/login-component/login.component';
-
+import { AuthInterceptor } from './service/Interceptors/AuthInterceptor';
 // AppModule recognizes the different custom html tag selectors
 // Help organimze app into cohesive blocks of functionaility
 // Provide boundaries within the app
@@ -69,6 +69,12 @@ import { LoginComponent } from './WebUI/pages/login-component/login.component';
     }),
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    },
+
     {
       provide: ConnectionServiceOptionsToken,
       useValue: <ConnectionServiceOptions>{

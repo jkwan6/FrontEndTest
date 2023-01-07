@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginRequest } from '../../../model_interfaces/ILoginRequest';
 import { LoginResult } from '../../../model_interfaces/ILoginResult';
-import { AuthService } from '../../../service/NewFolder/AuthService';
+import { AuthService } from '../../../service/AuthService/AuthService';
 
 @Component({
   selector: 'app-login',
@@ -29,10 +29,12 @@ export class LoginComponent implements OnInit {
       Email: ['', Validators.required],
       Password: ['', Validators.required]
     });
-
   }
 
+  
+
   onSubmit() {
+
     var loginRequest = <LoginRequest>{};
     loginRequest.email = this.form.controls['Email'].value;
     loginRequest.password = this.form.controls['Password'].value;

@@ -8,13 +8,15 @@ import { BehaviorSubject } from 'rxjs';
 
 export class SideNavService {
 
+
+  // Subject but with Behaviour = Will send the last Emitted Value to Late Subscribers
   private toggle = new BehaviorSubject<boolean>(false);
-    currentToggleStatus = this.toggle.asObservable();
+  public currentToggleStatus$ = this.toggle.asObservable();
 
   constructor() { }
 
-    changeToggleStatus(_toggle: boolean) {
-      this.toggle.next(_toggle);
-    }
+  changeToggleStatus(_toggle: boolean) {
+    this.toggle.next(_toggle);
+  }
 
 }
