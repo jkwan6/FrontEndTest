@@ -6,7 +6,6 @@ import { TestPageTwoComponent } from './WebUI/pages/test-page-2/test-page-two.co
 import { TestPageThreeComponent } from './WebUI/pages/test-page-3/test-page-three.component';
 import { TestPageOneDetailComponent } from './WebUI/pages/test-page-1-detail/test-page-one-detail.component';
 import { TestPageTwoDetailComponent } from './WebUI/pages/test-page-2-detail/test-page-two-detail.component';
-import { TestPageOneCreateComponent } from './WebUI/pages/test-page-1-create/test-page-one-create.component';
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
 import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.component';
 import { LoginComponent } from './WebUI/pages/login-component/login.component';

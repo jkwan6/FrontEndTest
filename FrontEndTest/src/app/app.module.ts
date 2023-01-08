@@ -18,7 +18,6 @@ import { TestPageOneDetailComponent } from './WebUI/pages/test-page-1-detail/tes
 import { TestPageTwoDetailComponent } from './WebUI/pages/test-page-2-detail/test-page-two-detail.component';
 import { SideBarComponent } from './WebUI/body-layout/side-bar-html/side-bar.component';
 import { BodyLayoutComponent } from './WebUI/body-layout/body-layout.component';
-import { TestPageOneCreateComponent } from './WebUI/pages/test-page-1-create/test-page-one-create.component';
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
 import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -50,7 +49,6 @@ import { TestPageSixComponent } from './WebUI/pages/test-page-6/test-page-six.co
     TestPageTwoDetailComponent,
     SideBarComponent,
     BodyLayoutComponent,
-    TestPageOneCreateComponent,
     TestPageFourComponent,
     TestPageFiveComponent,
     LoginComponent,
