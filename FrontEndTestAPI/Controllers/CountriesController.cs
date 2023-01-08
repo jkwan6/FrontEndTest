@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FrontEndTestAPI.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CountriesController : ControllerBase

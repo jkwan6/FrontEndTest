@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseService } from "../BaseService";
 import { IApiResult } from './../IApiResult';
-import { ICountry } from "../../model_interfaces/ICountry";
+import { ICountry } from "../../Interfaces/ICountry";
 
 @Injectable({
   providedIn: 'root'    // Singleton bcz Injected in Root

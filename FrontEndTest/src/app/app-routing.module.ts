@@ -10,19 +10,25 @@ import { TestPageOneCreateComponent } from './WebUI/pages/test-page-1-create/tes
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
 import { TestPageFiveComponent } from './WebUI/pages/test-page-5/test-page-five.component';
 import { LoginComponent } from './WebUI/pages/login-component/login.component';
+import { TestPageSixComponent } from './WebUI/pages/test-page-6/test-page-six.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'testpageone', component: TestPageOneComponent },
-  { path: 'testpagetwo', component: TestPageTwoComponent },
+  { path: 'testpageones', component: TestPageOneComponent },
+  { path: 'testpagetwos', component: TestPageTwoComponent },
   { path: 'testpagethree', component: TestPageThreeComponent },
   { path: 'testpagefour', component: TestPageFourComponent },
-  { path: 'testpageone/:id', component: TestPageOneDetailComponent },
-  { path: 'testpagetwo/:id', component: TestPageTwoDetailComponent },
-  { path: 'testpageonecreate', component: TestPageOneCreateComponent },
-  { path: 'testpagetwodetail', component: TestPageTwoDetailComponent },
   { path: 'testpagefive', component: TestPageFiveComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'testpagesix', component: TestPageSixComponent },
+
+  { path: 'testpageone/:id', component: TestPageOneDetailComponent },
+  { path: 'testpageone', component: TestPageOneDetailComponent },
+
+  { path: 'testpagetwo/:id', component: TestPageTwoDetailComponent },
+  { path: 'testpagetwodetail', component: TestPageTwoDetailComponent },
+
+  { path: 'login', component: LoginComponent },
+
 ]
 
 

@@ -26,6 +26,9 @@ import { environment } from '../environments/environment';
 import { ConnectionServiceModule, ConnectionServiceOptions, ConnectionServiceOptionsToken } from 'angular-connection-service';
 import { LoginComponent } from './WebUI/pages/login-component/login.component';
 import { AuthInterceptor } from './service/Interceptors/AuthInterceptor';
+import { TestPageSixComponent } from './WebUI/pages/test-page-6/test-page-six.component';
+
+
 // AppModule recognizes the different custom html tag selectors
 // Help organimze app into cohesive blocks of functionaility
 // Provide boundaries within the app
@@ -51,6 +54,7 @@ import { AuthInterceptor } from './service/Interceptors/AuthInterceptor';
     TestPageFourComponent,
     TestPageFiveComponent,
     LoginComponent,
+    TestPageSixComponent,
   ],
   // Import other modules so that the app can work with other modules
   imports: [

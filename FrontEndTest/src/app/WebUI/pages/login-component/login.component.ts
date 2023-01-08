@@ -2,8 +2,8 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginRequest } from '../../../model_interfaces/ILoginRequest';
-import { LoginResult } from '../../../model_interfaces/ILoginResult';
+import { LoginRequest } from '../../../Interfaces/ILoginRequest';
+import { LoginResult } from '../../../Interfaces/ILoginResult';
 import { AuthService } from '../../../service/AuthService/AuthService';
 
 @Component({

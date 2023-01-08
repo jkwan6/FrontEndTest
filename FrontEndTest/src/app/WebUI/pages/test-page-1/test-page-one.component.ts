@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { environment } from '../../../../environments/environment';
-import { ICity } from '../../../model_interfaces/ICity';
+import { ICity } from '../../../Interfaces/ICity';
 import { MatSort } from '@angular/material/sort';
 import { CityService } from '../../../service/CityService/CityService';
 import { IApiResult } from '../../../service/IApiResult';

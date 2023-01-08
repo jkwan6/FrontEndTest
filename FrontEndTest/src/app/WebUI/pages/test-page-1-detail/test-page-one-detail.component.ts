@@ -1,11 +1,11 @@
 import { HttpClient, HttpContext, HttpParams } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { ICity } from "../../../model_interfaces/ICity";
-import { ICountry } from "../../../model_interfaces/ICountry";
+import { ICity } from "../../../Interfaces/ICity";
+import { ICountry } from "../../../Interfaces/ICountry";
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -17,44 +17,59 @@ import { map } from 'rxjs/operators';
 export class TestPageOneDetailComponent implements OnInit {
 
 
-  // name lat lon field - Each field needs its own form control
-  //                    - They will all be nested inside a form group
-  form!: FormGroup;   // The Form Group - Will nest formControls
+  form!: FormGroup;
   city!: ICity;
   countries!: ICountry[];
 
   constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) { }
 
-
   ngOnInit(): void {
-    this.form = new FormGroup(
-      {
-        name: new FormControl("", Validators.required),
-        lat: new FormControl("", Validators.required),
-        lon: new FormControl("", Validators.required),
-        countryId: new FormControl("", Validators.required)
-      }, null, this.isDupeCity());
-    this.loadData();
-  } // End OnInit
 
-  // Method gets called by ngOnInit
+    this.form = this.fb.group({
+      name: ["", Validators.required],
+      lat: ["", Validators.required],
+      lon: ["", Validators.required],
+      countryId: ["", Validators.required]
+    }, this.isDupeCity());
+
+    this.loadData();
+  } 
+
+  // The difference Between Create & Detail will happen in loadData()
   public loadData(): void {
 
     this.loadCountries();
 
+    // To get to the Detail page - Click City or Click Add
+    // If Click City, (Id) Present - ID present on the URL
+    // If Click Add, (Id) Absent - ID absent from the URL
     var idParams = this.activatedRoute.snapshot.paramMap.get("id");
-    var id = idParams ? +idParams : 0;
 
-    var url = environment.baseUrl + 'api/cities/' + id;
-    this.http.get<any>(url).subscribe(
-      result => {
-        this.city = result.value;
-        this.form.patchValue(this.city);
-      }, err => console.error(err));
+    if (idParams) {
+
+      var id = +idParams;
+
+      // Validation Step to Check if Number or Not
+      if (isNaN(id)) {
+        console.log("Parameter can only be a Number");
+        return undefined;
+      }
+
+      var url = environment.baseUrl + 'api/cities/' + id;
+      this.http.get<any>(url).subscribe(
+        result => {
+          this.city = result.value;
+          this.form.patchValue(this.city);
+        }, err => console.error(err));
+    }
+
+
+
   }
 
   loadCountries() {

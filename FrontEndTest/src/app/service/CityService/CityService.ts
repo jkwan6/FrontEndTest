@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BaseService } from "../BaseService";
 import { IApiResult } from './../IApiResult';
-import { ICity } from './../../model_interfaces/ICity';
+import { ICity } from '../../Interfaces/ICity';
 
 enum ModelBinding {
   pageIndex = "pageIndex",

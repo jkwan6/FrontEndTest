@@ -11,8 +11,8 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { ICity } from '../../../model_interfaces/ICity';
-import { ICountry } from '../../../model_interfaces/ICountry';
+import { ICity } from '../../../Interfaces/ICity';
+import { ICountry } from '../../../Interfaces/ICountry';
 import { map } from 'rxjs/operators';
 
 @Component({

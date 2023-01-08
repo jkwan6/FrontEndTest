@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICountry } from '../../../model_interfaces/ICountry';
+import { ICountry } from '../../../Interfaces/ICountry';
 import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';

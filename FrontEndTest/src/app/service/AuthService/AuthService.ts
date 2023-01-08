@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { LoginRequest } from "../../model_interfaces/ILoginRequest";
-import { LoginResult } from "../../model_interfaces/ILoginResult";
+import { LoginRequest } from "../../Interfaces/ILoginRequest";
+import { LoginResult } from "../../Interfaces/ILoginResult";
 import { urlEnum } from "../../Enumerators/FilePath";
 
 @Injectable({
