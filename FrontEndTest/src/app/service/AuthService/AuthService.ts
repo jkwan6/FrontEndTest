@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { LoginRequest } from "../../Interfaces/ILoginRequest";
-import { LoginResult } from "../../Interfaces/ILoginResult";
+import { ILoginRequest } from "../../Interfaces/ILoginRequest";
+import { ILoginResult } from "../../Interfaces/ILoginResult";
 import { urlEnum } from "../../Enumerators/FilePath";
 
 @Injectable({
@@ -23,7 +23,7 @@ export class AuthService {  constructor(
     }
   }
 
-  login(loginRequest: LoginRequest): Observable<LoginResult> {    var url = environment.baseUrl + "api/Account/Login";    // Tap Operator. Gives it a Side Effect || Doesnt modify the results of the Observable    var loginResult$ = this.http.post<LoginResult>(url, loginRequest).pipe(tap(result => {
+  login(loginRequest: ILoginRequest): Observable<ILoginResult> {    var url = environment.baseUrl + "api/Account/Login";    // Tap Operator. Gives it a Side Effect || Doesnt modify the results of the Observable    var loginResult$ = this.http.post<ILoginResult>(url, loginRequest).pipe(tap(result => {
         if (result.success && result.token)
         {
           localStorage.setItem(this.tokenKey, result.token);

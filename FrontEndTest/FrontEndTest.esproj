@@ -14,5 +14,6 @@
     <Folder Include="src\app\POCO\" />
     <Folder Include="src\app\service\CountryService\" />
     <Folder Include="src\app\service\AuthService\" />
+    <Folder Include="src\app\service\TestServices\" />
   </ItemGroup>
 </Project>

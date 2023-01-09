@@ -6,7 +6,6 @@ import { catchError, Observable, throwError } from "rxjs";
 import { AuthService } from "../AuthService/AuthService";
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +35,6 @@ export class AuthInterceptor implements HttpInterceptor{
         }
         return throwError(error);
       })
-
     )
   }
 

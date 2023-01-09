@@ -1,3 +1,3 @@
-export interface LoginResult {  success: boolean;
+export interface ILoginResult {  success: boolean;
   message: string;
   token?: string;}

@@ -14,8 +14,8 @@ import { TestPageTwoComponent } from './WebUI/pages/test-page-2/test-page-two.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { TestPageThreeComponent } from './WebUI/pages/test-page-3/test-page-three.component';
 import { EngineComponent } from './service/ThreeService/engine.component';
-import { TestPageOneDetailComponent } from './WebUI/pages/test-page-1-detail/test-page-one-detail.component';
-import { TestPageTwoDetailComponent } from './WebUI/pages/test-page-2-detail/test-page-two-detail.component';
+import { TestPageOneDetailComponent } from './WebUI/pages/test-page-1/test-page-1-detail/test-page-one-detail.component';
+import { TestPageTwoDetailComponent } from './WebUI/pages/test-page-2/test-page-2-detail/test-page-two-detail.component';
 import { SideBarComponent } from './WebUI/body-layout/side-bar-html/side-bar.component';
 import { BodyLayoutComponent } from './WebUI/body-layout/body-layout.component';
 import { TestPageFourComponent } from './WebUI/pages/test-page-4/test-page-four.component';
@@ -26,6 +26,7 @@ import { ConnectionServiceModule, ConnectionServiceOptions, ConnectionServiceOpt
 import { LoginComponent } from './WebUI/pages/login-component/login.component';
 import { AuthInterceptor } from './service/Interceptors/AuthInterceptor';
 import { TestPageSixComponent } from './WebUI/pages/test-page-6/test-page-six.component';
+import { TestPageSevenComponent } from './WebUI/pages/test-page-7/test-page-seven.component';
 
 
 // AppModule recognizes the different custom html tag selectors
@@ -53,6 +54,7 @@ import { TestPageSixComponent } from './WebUI/pages/test-page-6/test-page-six.co
     TestPageFiveComponent,
     LoginComponent,
     TestPageSixComponent,
+    TestPageSevenComponent,
   ],
   // Import other modules so that the app can work with other modules
   imports: [

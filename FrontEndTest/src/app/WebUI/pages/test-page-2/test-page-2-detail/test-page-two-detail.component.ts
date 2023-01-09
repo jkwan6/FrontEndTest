@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ICountry } from '../../../Interfaces/ICountry';
+import { ICountry } from '../../../../Interfaces/ICountry';
 import { FormControl, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-test-page-two-detail',
