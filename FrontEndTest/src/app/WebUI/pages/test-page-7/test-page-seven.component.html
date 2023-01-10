@@ -1,1 +1,41 @@
-<p>tes-page-seven works!</p>
+<table mat-table
+       [dataSource]="Speed"
+       [hidden]="!Speed">
+  <tr>
+    <ng-container matColumnDef="href">
+      <th mat-header-cell *matHeaderCellDef> Href </th>
+      <td mat-cell *matCellDef="let ISpeedStuff"> {{ ISpeedStuff.href}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let ISpeedStuff"> {{ ISpeedStuff.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> id </th>
+      <td mat-cell *matCellDef="let ISpeedStuff"> {{ ISpeedStuff.name}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="latest_stats">
+      <th mat-header-cell *matHeaderCellDef> latest_stats </th>
+      <td mat-cell *matCellDef="let ISpeedStuff"> {{ ISpeedStuff.latest_stats}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="trend">
+      <th mat-header-cell *matHeaderCellDef> trend </th>
+      <td mat-cell *matCellDef="let ISpeedStuff"> {{ ISpeedStuff.trend}} </td>
+    </ng-container>
+
+
+  </tr>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+</table>

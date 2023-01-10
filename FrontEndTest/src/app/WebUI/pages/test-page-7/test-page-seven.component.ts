@@ -1,5 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import {ISpeedStuff } from '../../../Interfaces/ISpeedStuff'
 
 @Component({
   selector: 'app-tes-page-seven',
@@ -9,6 +13,41 @@ import { Component, OnInit } from '@angular/core';
 export class TestPageSevenComponent implements OnInit {
 
   url?: string;
+  key?: string;
+
+  Speed!: MatTableDataSource<ISpeedStuff>;
+
+
+  public displayedColumns: string[] = [
+    "href",
+    "id",
+    "name",
+    //"public_name",
+    //"organization",
+    //"origin",
+    //"destination",
+    //"enabled",
+    //"draft",
+    //"length",
+    //"min_number_of_lanes",
+    //"minimum_tt",
+    //"is_freeway",
+    //"direction",
+    //"coordinates",
+    "latest_stats",
+    //"latest_source_id_type_stats",
+    "trend",
+    //"incidents",
+    //"link_params",
+    //"excluded_source_id_types",
+    //"emulated_travel_time",
+    //"closed_or_ignored"
+  ];
+
+
+  //@ViewChild(MatPaginator) paginator!: MatPaginator;              // ViewChild Properties
+  //@ViewChild(MatSort) sort!: MatSort;                             // ViewChild Properties
+
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +56,12 @@ export class TestPageSevenComponent implements OnInit {
 
 
 
+    var params = new HttpParams;
+    params.set("key", this.key);
+
+    this.http.get<ISpeedStuff[]>(this.url).subscribe(x => {
+      this.Speed = new MatTableDataSource<ISpeedStuff>(x);
+    });
 
   }
 
