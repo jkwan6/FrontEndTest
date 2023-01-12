@@ -29,11 +29,13 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
         {
             // UserManager is from Identity Nuget
             var user = await _userManager.FindByNameAsync(loginRequest.Email);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
+            var password = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
+
+            if ( user is null || password is false)     // OR
             {
-                return new LoginResult()
-                {
-                    success = false,
+                return new LoginResult() 
+                { 
+                    success = false, 
                     message = "Invalid Email or Password."
                 };
             }
