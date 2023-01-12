@@ -79,6 +79,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<JwtCreatorService>();        // Injecting the Concrete Implementation
 

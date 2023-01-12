@@ -14,47 +14,25 @@ namespace FrontEndTestAPI.Controllers
     public class AccountController: ControllerBase
     {
         // Properties
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly JwtCreatorService _jwtCreator;
+        private readonly IAuthService _authService;
 
         // Constructor
-        public AccountController(
-            ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager,
-            JwtCreatorService jwtHandler )
+        public AccountController(IAuthService authService)
         {
-            _context = context;
-            _userManager = userManager;
-            _jwtCreator = jwtHandler;
+            _authService = authService;
         }
 
         // Login Request will Model Bind Email and Password from HTTP Post
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            // UserManager is from Identity Nuget
-            var user = await _userManager.FindByNameAsync(loginRequest.Email);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
-            {
-                return Unauthorized(new LoginResult()
-                {
-                    success = false,
-                    message = "Invalid Email or Password."
-                });
-            }
+            string ipAd = ipAdress();
+            // Data Access Layer
+            var loginResult = await _authService.Login(loginRequest, ipAdress());
 
-            // Token Preparation
-            var tokenPrep = await _jwtCreator.GetTokenAsync(user);
-            var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
+            bool isAuthorized = (loginResult.success) ? true : false;
 
-            // Return JSON Object to Client
-            return Ok(new LoginResult()
-            {
-                success = true,
-                message = "Login Successful",
-                token = tokenToReturn
-            });
+            return (isAuthorized) ? Ok(loginResult) : Unauthorized(loginResult);
         }
 
         private string ipAdress()
