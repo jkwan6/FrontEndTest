@@ -1,4 +1,5 @@
-﻿using FrontEndTestAPI.Data.AppDbContext;
+﻿using Azure.Core;
+using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data_Models.DTO;
 using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DbAccessLayer.DataServices;
@@ -55,8 +56,15 @@ namespace FrontEndTestAPI.Controllers
                 token = tokenToReturn
             });
         }
-         
 
+        private string ipAdress()
+        {
+            if (this.Request.Headers.ContainsKey("X-Forwarded-For"))
+                return this.Request.Headers["X-Forwarded-For"];
+            else
+                // Will convert IPV6 to IPV4. Will keep IPV4 to IPV4
+                return this.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+        }
 
     }
 }

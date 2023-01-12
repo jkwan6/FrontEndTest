@@ -55,6 +55,8 @@ export class TestPageSevenComponent implements OnInit {
 
 
 
+    this.key = "XXXXXXXXXXXXXXXXXX";
+    this.url = "https://data-exchange-api.vicroads.vic.gov.au/bluetooth_data/links?key=" + this.key;
 
     var params = new HttpParams;
     params.set("key", this.key);

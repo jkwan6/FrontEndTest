@@ -10,9 +10,16 @@ Injectable(
   }
 )
 
+// We need a way to keep track of the login status
+    // Can track with the token
+    // Need a Toggle Status
+    // This whole class is a singleton - can put it in there
+
+
 export class AuthTestService implements OnInit{
 
   // Properties
+  loginStatus: boolean = false; // Default Status is False
   loginPostUrl?: string;
   form!: FormGroup;
 
@@ -27,6 +34,16 @@ export class AuthTestService implements OnInit{
 
   }
 
+  // authTracking based on existence of Token
+  authTrackingInit() {
+    var token = localStorage.getItem("key");
+
+    var tokenExists: boolean;
+    tokenExists = (token) ? true : false;
+
+
+
+  }
 
 
   // I want to build the Expression Trees in this service
