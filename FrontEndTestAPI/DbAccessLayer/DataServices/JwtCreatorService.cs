@@ -35,7 +35,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
         // Method To Create a Key and then Creating Signing Credentials from the Key
         private SigningCredentials GetSigningCredentials()
         {
-            var key = Encoding.UTF8.GetBytes(_config["JwtSettings:SecurityKey"]);
+            var key = Encoding.UTF8.GetBytes(_config["JwtSettings:SecurityKey"]!);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }

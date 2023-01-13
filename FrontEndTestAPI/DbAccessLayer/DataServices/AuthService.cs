@@ -5,15 +5,18 @@ using FrontEndTestAPI.DbAccessLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
     public class AuthService: IAuthService
     {
+        // Properties
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly JwtCreatorService _jwtCreator;
 
+        // Constructor
         public AuthService(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
@@ -25,32 +28,37 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             _jwtCreator = jwtCreator;
         }
 
+        // Db Access + Token Creation
         public async Task<LoginResult> Login(LoginRequest loginRequest, string ipAddress)
         {
-            // UserManager is from Identity Nuget
+            // Validate Username and Password Against DB
             var user = await _userManager.FindByNameAsync(loginRequest.Email);
             var password = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
-            if ( user is null || password is false)     // OR
-            {
-                return new LoginResult() 
-                { 
-                    success = false, 
-                    message = "Invalid Email or Password."
-                };
-            }
+            // Early Return if Authentication Fails
+            if ( user is null || password is false)
+            return new LoginResult(false);
 
-            // Token Preparation
+            // Token Preparation if Authentication Success
             var tokenPrep = await _jwtCreator.GetTokenAsync(user);
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
 
-            // Return JSON Object to Client
-            return new LoginResult()
-            {
-                success = true,
-                message = "Login Successful",
-                token = tokenToReturn
-            };
+            var loginResult = new LoginResult(true) { token = tokenToReturn };
+
+            return loginResult;
         }
+
+        private string generateRefreshToken(string ipAddress)
+        {
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
+                var randomBytes = new byte[64];
+                rngCryptoServiceProvider.GetBytes(randomBytes);
+                var Token = Convert.ToBase64String(randomBytes);
+                return Token;
+            }
+        }
+
+
     }
 }

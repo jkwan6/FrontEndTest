@@ -2,6 +2,20 @@
 {
     public class LoginResult
     {
+        public LoginResult(bool param)
+        {
+            if (param is false)
+            {
+                success = false;
+                message = "Invalid Email or Password.";
+            }
+            else
+            {
+                success = true;
+                message = "Login Successful";
+            }
+        }
+
         public bool success { get; set; }
         public string message { get; set; } = null!;
         public string? token { get; set; }

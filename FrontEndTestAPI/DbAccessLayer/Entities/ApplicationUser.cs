@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Text.Json.Serialization;
 
 namespace FrontEndTestAPI.DbAccessLayer.Entities
 {
@@ -8,6 +9,7 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
         // Just gonna be deriving from the Identity User Base Class.
 
 
-
+        [JsonIgnore]
+        public List<RefreshToken> RefreshTokens { get; set; }
     }
 }
