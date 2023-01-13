@@ -1,4 +1,6 @@
-﻿namespace FrontEndTestAPI.Data_Models.POCO
+﻿using System.Text.Json.Serialization;
+
+namespace FrontEndTestAPI.Data_Models.POCO
 {
     public class LoginResult
     {
@@ -19,5 +21,8 @@
         public bool success { get; set; }
         public string message { get; set; } = null!;
         public string? token { get; set; }
+
+        [JsonIgnore] // refresh token is returned in http only cookie
+        public string refreshToken { get; set; }
     }
 }

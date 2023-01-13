@@ -42,20 +42,31 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             // Token Preparation if Authentication Success
             var tokenPrep = await _jwtCreator.GetTokenAsync(user);
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
+            var refreshTokenToReturn = generateRefreshToken(ipAddress);
 
-            var loginResult = new LoginResult(true) { token = tokenToReturn };
+            var loginResult = new LoginResult(true) 
+            { token = tokenToReturn, refreshToken = refreshTokenToReturn.Token };
 
             return loginResult;
         }
 
-        private string generateRefreshToken(string ipAddress)
+        private RefreshToken generateRefreshToken(string ipAddress)
         {
-            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            using (var rngCryptoServiceProvider = RandomNumberGenerator.Create())
             {
                 var randomBytes = new byte[64];
                 rngCryptoServiceProvider.GetBytes(randomBytes);
-                var Token = Convert.ToBase64String(randomBytes);
-                return Token;
+                var token = Convert.ToBase64String(randomBytes);
+
+                var refreshToken = new RefreshToken
+                {
+                    Token = token,
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    Created = DateTime.UtcNow,
+                    CreatedByIp = ipAddress
+                };
+
+                return refreshToken;
             }
         }
 
