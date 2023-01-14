@@ -52,9 +52,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             if (user.RefreshTokens is null)
                 user.RefreshTokens = new List<RefreshToken>();
 
-            user.RefreshTokens.Add(refreshTokenToReturn);
-
-            var user1 = _context.Users.Entry(user);
+            _context.RefreshTokens.Add(refreshTokenToReturn);
             
             _context.Users.Update(user);
     
