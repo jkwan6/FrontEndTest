@@ -13,24 +13,31 @@ namespace FrontEndTestAPI.Controllers
     [Route("api/[controller]")]
     public class AccountController: ControllerBase
     {
-        private readonly IAuthService _authService;                 // Property
+        /* <------------  Properties ------------> */
+
+        private readonly IAuthService _authService;
+        
+        /* <------------  Constructor ------------> */
         public AccountController(IAuthService authService)
         {
             _authService = authService;                     // DI
-        }       // DI
+        }
+
+        /* <-------------  Endpoints -------------> */
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             string ?ipAd = ipAdress();
 
-            var loginResult = await _authService.Login(loginRequest, ipAd!);
+            var loginResult = await _authService.Login(loginRequest, ipAdress()!);
 
             bool isAuthorized = (loginResult.success) ? true : false;
 
             return (isAuthorized) ? Ok(loginResult) : Unauthorized(loginResult);
         }
 
+        /* <----------  Private Methods ----------> */
         private string ?ipAdress()
         {
             if (this.Request.Headers.ContainsKey("X-Forwarded-For"))

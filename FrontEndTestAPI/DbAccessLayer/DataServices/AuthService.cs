@@ -4,6 +4,7 @@ using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DbAccessLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 
@@ -41,12 +42,30 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
             // Token Preparation if Authentication Success
             var tokenPrep = await _jwtCreator.GetTokenAsync(user);
+
+            // Creating JWT and Refresh JWT
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
             var refreshTokenToReturn = generateRefreshToken(ipAddress);
 
+            _context.Users.Select(x => x.RefreshTokens);
+
+            if (user.RefreshTokens is null)
+                user.RefreshTokens = new List<RefreshToken>();
+
+            user.RefreshTokens.Add(refreshTokenToReturn);
+
+            var user1 = _context.Users.Entry(user);
+            
+            _context.Users.Update(user);
+    
+
+            _context.SaveChanges();
+
+            // Assigning Token to Login Result
             var loginResult = new LoginResult(true) 
             { token = tokenToReturn, refreshToken = refreshTokenToReturn.Token };
 
+            // Returning LoginResult to Controller
             return loginResult;
         }
 

@@ -50,7 +50,7 @@ namespace FrontEndTestAPI.Data.ApiResult
         // Calling CreateAsync that takes in 3 parameters
         // The method signature means that it needs to return an ApiResult<T>
         // The static class returns an ApiResult<T>
-        public static async Task<ApiResult<T>> CreateAsync(IQueryable<T> dtoObject, PageParameters pageParams)
+        public static async Task<ApiResult<T>> CreateAsync(IQueryable<T> queryable, PageParameters pageParams)
         {
             if (IsNotNullOrEmptyProperty(pageParams.filterColumn))
             {
@@ -58,19 +58,15 @@ namespace FrontEndTestAPI.Data.ApiResult
                 {
                     if (IsValidProperty(pageParams.filterColumn!))
                     {
-
-
-                        dtoObject = dtoObject.Where(
-                        string.Format("{0}.StartsWith(@0)", pageParams.filterColumn),
-                        pageParams.filterQuery);
-
-
+                        // Executing the Queryable to a List
+                        queryable = queryable.Where(
+                            string.Format("{0}.Contains(@0)", pageParams.filterColumn), pageParams.filterQuery);
                     }
 
                 }
             }
 
-            var count = await dtoObject.CountAsync();  // Get Total Rows in AppDbContext
+            var count = await queryable.CountAsync();  // Get Total Rows in AppDbContext
 
             if(IsValidAndNotNullProperty(pageParams.sortColumn))   // If Property is NOT Null AND Property is Valid
             {
@@ -82,13 +78,13 @@ namespace FrontEndTestAPI.Data.ApiResult
                 {
                     pageParams.sortOrder = SortEnum.DESC.ToString();
                 }
-                dtoObject = dtoObject.OrderBy(string.Format("{0} {1}", pageParams.sortColumn, pageParams.sortOrder)); // String Interpolation
+                queryable = queryable.OrderBy(string.Format("{0} {1}", pageParams.sortColumn, pageParams.sortOrder)); // String Interpolation
             }
 
-            dtoObject = dtoObject                         // Linq after sorting                 
+            queryable = queryable                         // Linq after sorting                 
                 .Skip(pageParams.pageIndex * pageParams.pageSize)         // Skip the first N Values on the Db
                 .Take(pageParams.pageSize);                    // Take the first N Values on the Db after the skipped values
-            var data = await dtoObject.ToListAsync();  // Getting a List of the Values taken
+            var data = await queryable.ToListAsync();  // Getting a List of the Values taken
 
             #region comments
             // Instantiate the class from the static class

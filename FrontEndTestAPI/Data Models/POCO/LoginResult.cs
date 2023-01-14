@@ -22,7 +22,8 @@ namespace FrontEndTestAPI.Data_Models.POCO
         public string message { get; set; } = null!;
         public string? token { get; set; }
 
-        [JsonIgnore] // refresh token is returned in http only cookie
+
+        [JsonIgnore] // Will Not be Sent Via the Return Body
         public string refreshToken { get; set; }
     }
 }
