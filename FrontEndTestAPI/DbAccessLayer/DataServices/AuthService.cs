@@ -29,44 +29,58 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             _jwtCreator = jwtCreator;
         }
 
-        // Db Access + Token Creation
+        // Login Method - Returns JWT and Refresh Token
         public async Task<LoginResult> Login(LoginRequest loginRequest, string ipAddress)
         {
-            // Validate Username and Password Against DB
+            // Validation against DB
             var user = await _userManager.FindByNameAsync(loginRequest.Email);
             var password = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
             // Early Return if Authentication Fails
-            if ( user is null || password is false)
-            return new LoginResult(false);
+            if ( user is null || password is false) return new LoginResult(false);
 
-            // Token Preparation if Authentication Success
-            var tokenPrep = await _jwtCreator.GetTokenAsync(user);
-
-            // Creating JWT and Refresh JWT
+            // Creation of Tokens
+            var tokenPrep = await _jwtCreator.GetTokenAsync(user);  // Token Prep
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
             var refreshTokenToReturn = generateRefreshToken(ipAddress);
 
-            _context.Users.Select(x => x.RefreshTokens);
-
-            if (user.RefreshTokens is null)
-                user.RefreshTokens = new List<RefreshToken>();
-
+            // DbContext Logic
+            if (user.RefreshTokens is null) { user.RefreshTokens = new List<RefreshToken>(); }
             user.RefreshTokens.Add(refreshTokenToReturn);
-
             _context.Users.Update(user);
-    
-
             _context.SaveChanges();
 
             // Assigning Token to Login Result
             var loginResult = new LoginResult(true) 
             { token = tokenToReturn, refreshToken = refreshTokenToReturn.Token };
 
-            // Returning LoginResult to Controller
+            // Returning LoginResult
             return loginResult;
         }
 
+
+
+        public async Task<LoginResult> RefreshToken(string refreshToken, string ipAddress)
+        {
+            // Check the GUID
+            var user = _context.Users.SingleOrDefault(
+
+                u => u.RefreshTokens.Any(t => t.Token == refreshToken)
+                
+                );
+
+
+            return null;
+        }
+
+
+
+
+
+
+
+
+        /* <----------  Private Methods ----------> */
         private RefreshToken generateRefreshToken(string ipAddress)
         {
             using (var rngCryptoServiceProvider = RandomNumberGenerator.Create())
@@ -86,7 +100,5 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
                 return refreshToken;
             }
         }
-
-
     }
 }

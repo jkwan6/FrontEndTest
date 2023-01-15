@@ -32,10 +32,25 @@ namespace FrontEndTestAPI.Controllers
 
             var loginResult = await _authService.Login(loginRequest, ipAdress()!);
 
+            setTokenCookie(loginResult.refreshToken);
+
             bool isAuthorized = (loginResult.success) ? true : false;
 
             return (isAuthorized) ? Ok(loginResult) : Unauthorized(loginResult);
         }
+
+
+        [HttpPost("Revoke")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+
+            return null;
+        }
+
+
+
 
         /* <----------  Private Methods ----------> */
         private string ?ipAdress()
@@ -46,6 +61,17 @@ namespace FrontEndTestAPI.Controllers
                 // Will convert IPV6 to IPV4. Will keep IPV4 to IPV4
                 return this.HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
         }
+
+        private void setTokenCookie(string token)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+            Response.Cookies.Append("refreshToken", token, cookieOptions);
+        }
+
 
     }
 }
