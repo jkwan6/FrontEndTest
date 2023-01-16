@@ -63,17 +63,18 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
         public async Task<LoginResult> RefreshToken(string oldRefreshToken, string ipAddress)
         {
             // Provides me with the user
-            var user = _context.Users           // This one is bugging out
+            var user = _context.Users           // This one is budd
                 .SingleOrDefault(u => u.RefreshTokens
                 .Any(t =>   t.Token == oldRefreshToken 
-                        &&  t.CreatedByIp == ipAddress 
-                        &&  t.IsActive == true));
+                        &&  t.CreatedByIp == ipAddress));
 
             // If conditions not met, Return Early
             if (user is null) return null;
 
+            //var test = _context.Users.Select(u => u.RefreshTokens).SingleOrDefault(t => t == RefreshToken);
+
             // scope token to variable
-            var currentRefreshToken = user.RefreshTokens.Single(t => t.Token == oldRefreshToken);
+            var currentRefreshToken = user.RefreshTokens.SingleOrDefault(t => t.Token == oldRefreshToken);
 
             // Create new refreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
