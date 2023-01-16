@@ -62,12 +62,16 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
         public async Task<LoginResult> RefreshToken(string refreshToken, string ipAddress)
         {
-            // Check the GUID
-            var user = _context.Users.SingleOrDefault(
+            // Provides me with the user
+            var user = _context.Users
+                .SingleOrDefault(u => u.RefreshTokens
+                .Any(t => t.Token == refreshToken && t.CreatedByIp == ipAddress));
 
-                u => u.RefreshTokens.Any(t => t.Token == refreshToken)
-                
-                );
+            var irefreshToken = user.RefreshTokens.Single(t => t.Token == ipAddress);
+
+            var newRefreshToken = generateRefreshToken(ipAddress);
+
+            // Populate previous RefreshToken Properties
 
 
             return null;
