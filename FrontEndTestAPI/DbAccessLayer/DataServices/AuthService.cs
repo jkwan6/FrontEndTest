@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
+using System.Linq;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
@@ -71,10 +72,20 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             // If conditions not met, Return Early
             if (user is null) return null;
 
-            //var test = _context.Users.Select(u => u.RefreshTokens).SingleOrDefault(t => t == RefreshToken);
+
+            // Trying to load the Refresh Token of a particular user
+            var tokenList = _context.Users
+                .Where(u => u == user)
+                .SelectMany(t => t.RefreshTokens)
+                .AsNoTracking()
+                .ToList();
+
+            tokenList.Reverse();
 
             // scope token to variable
-            var currentRefreshToken = user.RefreshTokens.SingleOrDefault(t => t.Token == oldRefreshToken);
+            var currentRefreshToken = tokenList.FirstOrDefault(t => t.Token == oldRefreshToken);
+
+            //var currentRefreshToken = user.RefreshTokens.SingleOrDefault(t => t.Token == oldRefreshToken);
 
             // Create new refreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
