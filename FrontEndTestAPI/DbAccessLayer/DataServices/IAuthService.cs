@@ -8,6 +8,6 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
     public interface IAuthService
     {
         public Task<LoginResult> Login(LoginRequest loginRequest, string ipAddress);
-     
+        public Task<LoginResult> RefreshToken(string oldRefreshToken, string ipAddress);
     }
 }

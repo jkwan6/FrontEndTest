@@ -60,21 +60,34 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
 
 
-        public async Task<LoginResult> RefreshToken(string refreshToken, string ipAddress)
+        public async Task<LoginResult> RefreshToken(string oldRefreshToken, string ipAddress)
         {
             // Provides me with the user
-            var user = _context.Users
+            var user = _context.Users           // This one is bugging out
                 .SingleOrDefault(u => u.RefreshTokens
-                .Any(t => t.Token == refreshToken && t.CreatedByIp == ipAddress));
+                .Any(t =>   t.Token == oldRefreshToken 
+                        &&  t.CreatedByIp == ipAddress 
+                        &&  t.IsActive == true));
 
-            var irefreshToken = user.RefreshTokens.Single(t => t.Token == ipAddress);
+            // If conditions not met, Return Early
+            if (user is null) return null;
 
+            // scope token to variable
+            var currentRefreshToken = user.RefreshTokens.Single(t => t.Token == oldRefreshToken);
+
+            // Create new refreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
 
-            // Populate previous RefreshToken Properties
+            // Revoking previous Token
+            currentRefreshToken.Revoked = DateTime.UtcNow;
+            currentRefreshToken.RevokedByIp = ipAddress;
+            currentRefreshToken.ReplacedByToken = newRefreshToken.Token;
 
+            // Creation of Access token
+            var tokenPrep = await _jwtCreator.GetTokenAsync(user);  // Token Prep
+            var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
 
-            return null;
+            return new LoginResult(true) { token = tokenToReturn, refreshToken = newRefreshToken.Token };
         }
 
 

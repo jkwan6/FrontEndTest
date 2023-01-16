@@ -40,12 +40,12 @@ namespace FrontEndTestAPI.Controllers
         }
 
 
-        [HttpPost("Revoke")]
+        [HttpPost("refreshtoken")]
         public async Task<IActionResult> RefreshToken()
         {
             var refreshToken = Request.Cookies["refreshToken"];
 
-
+            await _authService.RefreshToken(refreshToken, ipAdress());
             return null;
         }
 
