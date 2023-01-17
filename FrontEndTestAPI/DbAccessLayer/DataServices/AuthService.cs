@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Linq;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using AutoMapper.QueryableExtensions;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
@@ -78,43 +79,12 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
             //var test3 = test.RefreshTokens.Select(x => x);
 
-
-
-            var test6 = _context.Users.Where(x => x == user).Select(user => user.RefreshTokens).Where(t => t);
-
-
-            var test4 = _context.Users
+            var currentRefreshToken = _context.Users
                 .Where(x => x == user)
-                .Select(x => x.RefreshTokens
-                .Where(x => x.Token == oldRefreshToken));
-
-                
-                //.FirstOrDefault(x => x.Token == oldRefreshToken);
-
-           
-
-
-
-            //var test3 = _context.Users;
-            //var test4 = test3.Select(t => t.RefreshTokens.Where(t => t.Token == oldRefreshToken));
-            var test2 = test.RefreshTokens.Where(x => x.Token == oldRefreshToken);
-
-
-
-
-            // Trying to load the Refresh Token of a particular user
-            var tokenList = _context.Users
-                .Where(u => u == user)
-                .SelectMany(t => t.RefreshTokens)
+                .SelectMany(user => user.RefreshTokens
+                .Where(t => t.Token == oldRefreshToken))
                 .AsNoTracking()
-                .ToList();
-
-            tokenList.Reverse();
-
-            // scope token to variable
-            var currentRefreshToken = tokenList.FirstOrDefault(t => t.Token == oldRefreshToken);
-
-            //var currentRefreshToken = user.RefreshTokens.SingleOrDefault(t => t.Token == oldRefreshToken);
+                .FirstOrDefault();
 
             // Create new refreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
