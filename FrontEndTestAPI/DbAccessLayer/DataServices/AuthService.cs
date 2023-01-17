@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Linq;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
@@ -71,6 +72,28 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
             // If conditions not met, Return Early
             if (user is null) return null;
+
+
+            var test = _context.Users.FirstOrDefault(x => x == user);
+
+            //var test3 = test.RefreshTokens.Select(x => x);
+
+
+            var test4 = _context.Users
+                .Select(x => x.RefreshTokens.Where(x => x.Token == oldRefreshToken));
+
+                
+                //.FirstOrDefault(x => x.Token == oldRefreshToken);
+
+           
+
+
+
+            //var test3 = _context.Users;
+            //var test4 = test3.Select(t => t.RefreshTokens.Where(t => t.Token == oldRefreshToken));
+            var test2 = test.RefreshTokens.Where(x => x.Token == oldRefreshToken);
+
+
 
 
             // Trying to load the Refresh Token of a particular user
