@@ -79,8 +79,14 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             //var test3 = test.RefreshTokens.Select(x => x);
 
 
+
+            var test6 = _context.Users.Where(x => x == user).Select(user => user.RefreshTokens).Where(t => t);
+
+
             var test4 = _context.Users
-                .Select(x => x.RefreshTokens.Where(x => x.Token == oldRefreshToken));
+                .Where(x => x == user)
+                .Select(x => x.RefreshTokens
+                .Where(x => x.Token == oldRefreshToken));
 
                 
                 //.FirstOrDefault(x => x.Token == oldRefreshToken);
