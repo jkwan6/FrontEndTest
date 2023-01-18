@@ -86,6 +86,9 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
                 .AsNoTracking()
                 .FirstOrDefault();
 
+
+            var test4 = _context.Users.Any(x => x == user);
+
             // Create new refreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
 
