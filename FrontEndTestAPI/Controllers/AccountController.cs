@@ -45,8 +45,9 @@ namespace FrontEndTestAPI.Controllers
         {
             var refreshToken = Request.Cookies["refreshToken"];
 
-            await _authService.RefreshToken(refreshToken, ipAdress());
-            return null;
+            var loginResult = await _authService.RefreshToken(refreshToken, ipAdress());
+
+            return Ok(loginResult);
         }
 
 

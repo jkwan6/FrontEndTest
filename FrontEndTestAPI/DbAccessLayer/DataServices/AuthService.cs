@@ -65,31 +65,24 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
         public async Task<LoginResult> RefreshToken(string oldRefreshToken, string ipAddress)
         {
-            // Provides me with the user
-            var user = _context.Users           // This one is budd
+            // Provides me with the user based on token and ipAddress
+            var user = _context.Users
                 .SingleOrDefault(u => u.RefreshTokens
                 .Any(t =>   t.Token == oldRefreshToken 
                         &&  t.CreatedByIp == ipAddress));
 
             // If conditions not met, Return Early
-            if (user is null) return null;
+            if (user is null) return new LoginResult(false) {message = "No User Found"};
 
-
-            var test = _context.Users.FirstOrDefault(x => x == user);
-
-            //var test3 = test.RefreshTokens.Select(x => x);
-
-            var currentRefreshToken = _context.Users
+            // Get Current Refresh Token based on User and Refresh Token Parameter
+            var currentRefreshTokenPrep = _context.Users
                 .Where(x => x == user)
                 .SelectMany(user => user.RefreshTokens
                 .Where(t => t.Token == oldRefreshToken))
-                .AsNoTracking()
-                .FirstOrDefault();
+                .AsNoTracking();
+            var currentRefreshToken = currentRefreshTokenPrep.First();
 
-
-            var test4 = _context.Users.Any(x => x == user);
-
-            // Create new refreshToken
+            // Create new RefreshToken
             var newRefreshToken = generateRefreshToken(ipAddress);
 
             // Revoking previous Token
@@ -97,8 +90,14 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             currentRefreshToken.RevokedByIp = ipAddress;
             currentRefreshToken.ReplacedByToken = newRefreshToken.Token;
 
+            // Save the New RefreshToken to DB
+            if (user.RefreshTokens is null) { user.RefreshTokens = new List<RefreshToken>(); }
+            user.RefreshTokens.Add(currentRefreshToken);
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
             // Creation of Access token
-            var tokenPrep = await _jwtCreator.GetTokenAsync(user);  // Token Prep
+            var tokenPrep = await _jwtCreator.GetTokenAsync(user);
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
 
             return new LoginResult(true) { token = tokenToReturn, refreshToken = newRefreshToken.Token };
