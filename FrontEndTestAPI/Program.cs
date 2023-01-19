@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Cors;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +28,10 @@ builder.Services.AddSwaggerGen();                   // Swagger Stuff
 
 // API to Use an SQL Server and providing the Connection String
 // The Connection String will lead to the location of the DB
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
-        )
+        ).LogTo(Console.WriteLine, new[] {DbLoggerCategory.Query.Name})
     );
 
 builder.Services.AddCors(options =>

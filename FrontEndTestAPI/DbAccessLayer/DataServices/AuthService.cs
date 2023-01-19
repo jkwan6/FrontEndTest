@@ -78,8 +78,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             var currentRefreshTokenPrep = _context.Users
                 .Where(x => x == user)
                 .SelectMany(user => user.RefreshTokens
-                .Where(t => t.Token == oldRefreshToken))
-                .AsNoTracking();
+                .Where(t => t.Token.Contains(oldRefreshToken)));
             var currentRefreshToken = currentRefreshTokenPrep.First();
 
             // Create new RefreshToken
@@ -91,14 +90,16 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             currentRefreshToken.ReplacedByToken = newRefreshToken.Token;
 
             // Save the New RefreshToken to DB
-            if (user.RefreshTokens is null) { user.RefreshTokens = new List<RefreshToken>(); }
-            user.RefreshTokens.Add(currentRefreshToken);
+            //if (user.RefreshTokens is null) { user.RefreshTokens = new List<RefreshToken>();
+            user.RefreshTokens.Add(newRefreshToken);
             _context.Users.Update(user);
             _context.SaveChanges();
 
             // Creation of Access token
             var tokenPrep = await _jwtCreator.GetTokenAsync(user);
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
+
+
 
             return new LoginResult(true) { token = tokenToReturn, refreshToken = newRefreshToken.Token };
         }

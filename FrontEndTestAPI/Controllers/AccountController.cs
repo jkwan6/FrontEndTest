@@ -47,7 +47,11 @@ namespace FrontEndTestAPI.Controllers
 
             var loginResult = await _authService.RefreshToken(refreshToken, ipAdress());
 
-            return Ok(loginResult);
+            setTokenCookie(loginResult.refreshToken);
+
+            bool isAuthorized = (loginResult.success) ? true : false;
+
+            return (isAuthorized) ? Ok(loginResult) : Unauthorized(loginResult);
         }
 
 
