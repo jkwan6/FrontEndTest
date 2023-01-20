@@ -6,6 +6,7 @@ using FrontEndTestAPI.DbAccessLayer.DataServices;
 using FrontEndTestAPI.DbAccessLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace FrontEndTestAPI.Controllers
@@ -52,6 +53,19 @@ namespace FrontEndTestAPI.Controllers
             bool isAuthorized = (loginResult.success) ? true : false;
 
             return (isAuthorized) ? Ok(loginResult) : Unauthorized(loginResult);
+        }
+
+
+        [HttpPost("revoketoken")]
+        public IActionResult RevokeToken()
+        {
+            var refreshToken = Request.Cookies["refreshtoken"];
+
+            if (string.IsNullOrEmpty(refreshToken)) { return BadRequest("Token Required"); };
+
+            var result = _authService.RevokeToken(refreshToken);
+
+            return Ok(result);
         }
 
 

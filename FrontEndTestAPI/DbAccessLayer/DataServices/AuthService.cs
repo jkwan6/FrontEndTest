@@ -104,7 +104,15 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             return new LoginResult(true) { token = tokenToReturn, refreshToken = newRefreshToken.Token };
         }
 
+        
 
+        public async Task<LoginResult> RevokeToken(string refreshToken)
+        {
+            var currentRefreshToken = _context.Users.Select
+
+
+            return null;
+        }
 
 
 
