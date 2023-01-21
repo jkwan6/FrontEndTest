@@ -108,7 +108,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
         public async Task<LoginResult> RevokeToken(string refreshToken)
         {
-            var currentRefreshToken = _context.Users.Select
+            //var currentRefreshToken = _context.Users.Select
 
 
             return null;
