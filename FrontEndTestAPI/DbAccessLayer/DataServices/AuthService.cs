@@ -113,6 +113,10 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
                 .Equals(refreshToken))
                 .First();
 
+            var user = _context.Users
+                .Select(x => x)
+                .Where(x => x.RefreshTokens
+                .Any(x => x.Equals(currentRefreshToken)));
 
             return null;
         }
