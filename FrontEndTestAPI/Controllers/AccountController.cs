@@ -63,7 +63,7 @@ namespace FrontEndTestAPI.Controllers
 
             if (string.IsNullOrEmpty(refreshToken)) { return BadRequest("Token Required"); };
 
-            var result = _authService.RevokeToken(refreshToken);
+            var result = _authService.RevokeToken(refreshToken, ipAdress());
 
             return Ok(result);
         }

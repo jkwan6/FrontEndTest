@@ -106,9 +106,12 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
         
 
-        public async Task<LoginResult> RevokeToken(string refreshToken)
+        public async Task<LoginResult> RevokeToken(string refreshToken, string ipAdress)
         {
-            //var currentRefreshToken = _context.Users.Select
+            var currentRefreshToken = _context.RefreshTokens.Select(x => x)
+                .Where(x => x.Token
+                .Equals(refreshToken))
+                .First();
 
 
             return null;

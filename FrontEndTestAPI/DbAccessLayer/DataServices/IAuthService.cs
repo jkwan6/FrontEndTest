@@ -10,6 +10,6 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
     {
         public Task<LoginResult> Login(LoginRequest loginRequest, string ipAddress);
         public Task<LoginResult> RefreshToken(string oldRefreshToken, string ipAddress);
-        public Task<LoginResult> RevokeToken(string refreshToken);
+        public Task<LoginResult> RevokeToken(string refreshToken, string ipAdress);
     }
 }
