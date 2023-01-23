@@ -106,17 +106,28 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
         
 
-        public async Task<LoginResult> RevokeToken(string refreshToken, string ipAdress)
+        public async Task<LoginResult> RevokeToken(string refreshTokenString, string ipAdress)
         {
-            var currentRefreshToken = _context.RefreshTokens.Select(x => x)
+            // Get the Token from the Db
+            var refreshTokenEntity = _context.RefreshTokens.Select(x => x)
                 .Where(x => x.Token
-                .Equals(refreshToken))
+                .Equals(refreshTokenString))
                 .First();
 
+            // Get the User from the Db
             var user = _context.Users
                 .Select(x => x)
                 .Where(x => x.RefreshTokens
-                .Any(x => x.Equals(currentRefreshToken)));
+                .Any(x => x.Equals(refreshTokenEntity)));
+
+            // From then on you revoke
+            if (!refreshTokenEntity.IsActive) return new LoginResult(false);
+
+            // Revoking the Token -- What happens to those that were not assigned this?
+            refreshTokenEntity.Revoked = DateTime.UtcNow;
+
+
+
 
             return null;
         }
@@ -138,7 +149,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
                 var refreshToken = new RefreshToken
                 {
                     Token = token,
-                    Expires = DateTime.UtcNow.AddDays(7),
+                    Expires = DateTime.UtcNow.AddMinutes(5),
                     Created = DateTime.UtcNow,
                     CreatedByIp = ipAddress
                 };
