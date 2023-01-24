@@ -98,6 +98,7 @@ namespace FrontEndTestAPI.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppSessionId"));
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
@@ -121,7 +122,7 @@ namespace FrontEndTestAPI.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("AppSessions");
+                    b.ToTable("AppSessions", (string)null);
                 });
 
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", b =>
@@ -201,6 +202,7 @@ namespace FrontEndTestAPI.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
@@ -232,7 +234,7 @@ namespace FrontEndTestAPI.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -381,9 +383,13 @@ namespace FrontEndTestAPI.Data.Migrations
 
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", b =>
                 {
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", null)
+                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", "User")
                         .WithMany("AppSessions")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.RefreshToken", b =>
@@ -392,9 +398,13 @@ namespace FrontEndTestAPI.Data.Migrations
                         .WithMany("RefreshTokens")
                         .HasForeignKey("AppSessionId");
 
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", null)
+                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", "User")
                         .WithMany("RefreshTokens")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

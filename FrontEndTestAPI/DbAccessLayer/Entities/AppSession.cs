@@ -24,8 +24,8 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
 
 
         //// Parent Relationship One-to-Many
-        //[Required] public ApplicationUser applicationUser { get; set; }                         // Navigation Prop
-        //[ForeignKey(nameof(ApplicationUser))] public string ApplicationUserId { get; set; }     // Foreign Key
+        public ApplicationUser User { get; set; }                           // Navigation Prop
+        public string ApplicationUserId { get; set; }                       // Foreign Key
         
         //// Child Relationship One-to-Many
         [Required] public List<RefreshToken> RefreshTokens { get; set; }
