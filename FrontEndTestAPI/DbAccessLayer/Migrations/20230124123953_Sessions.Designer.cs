@@ -4,16 +4,19 @@ using FrontEndTestAPI.Data.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FrontEndTestAPI.Data.Migrations
+namespace FrontEndTestAPI.DbAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124123953_Sessions")]
+    partial class Sessions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,9 +200,6 @@ namespace FrontEndTestAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppSessionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -227,8 +227,6 @@ namespace FrontEndTestAPI.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppSessionId");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -388,10 +386,6 @@ namespace FrontEndTestAPI.Data.Migrations
 
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("AppSessionId");
-
                     b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", null)
                         .WithMany("RefreshTokens")
                         .HasForeignKey("ApplicationUserId");
@@ -451,11 +445,6 @@ namespace FrontEndTestAPI.Data.Migrations
             modelBuilder.Entity("FrontEndTestAPI.Data.Models.Country", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", b =>
-                {
-                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", b =>

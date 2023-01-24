@@ -32,5 +32,6 @@ namespace FrontEndTestAPI.Data.AppDbContext
         public DbSet<City> Cities => Set<City>();
         public DbSet<Country> Countries => Set<Country>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<AppSession> AppSessions => Set<AppSession>();
     }
 }
