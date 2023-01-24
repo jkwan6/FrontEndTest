@@ -9,9 +9,10 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
         // Just gonna be deriving from the Identity User Base Class.
 
 
-        [JsonIgnore]
-        public List<RefreshToken> RefreshTokens { get; set; }
+                // <-- Relationships --> //
 
-        public List<Session> Sessions { get; set; }
+        // Child Relationships
+        [JsonIgnore] public List<RefreshToken> RefreshTokens { get; set; }      // List of Refresh Tokens
+        [JsonIgnore] public List<AppSession> AppSessions { get; set; }          // List of AppSessions
     }
 }
