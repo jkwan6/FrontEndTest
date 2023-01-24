@@ -9,16 +9,17 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
 {
     public class RefreshToken
     {
-        [Key][Required]
-        public int Id { get; set; }
+        [Key] [Required] public int Id { get; set; }
         public string Token { get; set; }
         public DateTime? Expires { get; set; }
-        public bool IsExpired => DateTime.UtcNow >= Expires;
         public DateTime Created { get; set; }
         public string CreatedByIp { get; set; }
         public DateTime? Revoked { get; set; }
         public string? RevokedByIp { get; set; }
         public string? ReplacedByToken { get; set; }
-        public bool IsActive => (Revoked is null) && (!IsExpired);
+
+        // Method Properties
+        public bool IsActive => (this.Revoked is null) && (!this.IsExpired);
+        public bool IsExpired => DateTime.UtcNow >= this.Expires;
     }
 }

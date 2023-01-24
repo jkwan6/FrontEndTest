@@ -11,5 +11,7 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
 
         [JsonIgnore]
         public List<RefreshToken> RefreshTokens { get; set; }
+
+        public List<Session> Sessions { get; set; }
     }
 }
