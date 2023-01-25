@@ -89,42 +89,6 @@ namespace FrontEndTestAPI.Data.Migrations
                     b.ToTable("Countries", (string)null);
                 });
 
-            modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", b =>
-                {
-                    b.Property<int>("AppSessionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppSessionId"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Expires")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAdress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserFingerprint")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AppSessionId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("AppSessions", (string)null);
-                });
-
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -198,11 +162,7 @@ namespace FrontEndTestAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AppSessionId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Created")
@@ -229,8 +189,6 @@ namespace FrontEndTestAPI.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppSessionId");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -381,30 +339,11 @@ namespace FrontEndTestAPI.Data.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", b =>
-                {
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", "User")
-                        .WithMany("AppSessions")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.RefreshToken", b =>
                 {
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", null)
+                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", null)
                         .WithMany("RefreshTokens")
-                        .HasForeignKey("AppSessionId");
-
-                    b.HasOne("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -463,15 +402,8 @@ namespace FrontEndTestAPI.Data.Migrations
                     b.Navigation("Cities");
                 });
 
-            modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.AppSession", b =>
-                {
-                    b.Navigation("RefreshTokens");
-                });
-
             modelBuilder.Entity("FrontEndTestAPI.DbAccessLayer.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("AppSessions");
-
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618

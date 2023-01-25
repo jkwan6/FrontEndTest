@@ -8,7 +8,7 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
     public class AppSession
     {
         // Properties
-        [Key] [Required] public int AppSessionId { get; set; }
+        [Key][Required] public int AppSessionId { get; set; }
         public string IpAdress { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Expires { get; set; }
@@ -17,17 +17,18 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
 
         // Method Properties
         public bool IsActive => (this.Revoked is null) && (!this.IsExpired);
-        public bool IsExpired => DateTime.UtcNow >= this.Expires; 
+        public bool IsExpired => DateTime.UtcNow >= this.Expires;
 
 
-                            // <-- Relationships --> //
+        // <-- Relationships --> //
 
 
         //// Parent Relationship One-to-Many
         public ApplicationUser User { get; set; }                           // Navigation Prop
         public string ApplicationUserId { get; set; }                       // Foreign Key
-        
+
         //// Child Relationship One-to-Many
-        [Required] public List<RefreshToken> RefreshTokens { get; set; }    // List of Many Tokens
+        public List<RefreshToken> RefreshTokens { get; set; }    // List of Many Tokens
     }
 }
+

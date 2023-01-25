@@ -28,8 +28,8 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
 
 
         //// Parent Relationship 1
-        //public AppSession Session { get; set; }                             // Navigation Property
-        //public int AppSessionId { get; set; }     // Foreign Key
+        public AppSession Session { get; set; }                             // Navigation Property
+        public int AppSessionId { get; set; }     // Foreign Key
 
         //// Parent Relationship 2
         public ApplicationUser User { get; set; } 
