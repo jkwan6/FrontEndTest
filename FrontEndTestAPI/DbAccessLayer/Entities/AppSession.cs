@@ -28,6 +28,6 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
         public string ApplicationUserId { get; set; }                       // Foreign Key
         
         //// Child Relationship One-to-Many
-        [Required] public List<RefreshToken> RefreshTokens { get; set; }
+        [Required] public List<RefreshToken> RefreshTokens { get; set; }    // List of Many Tokens
     }
 }
