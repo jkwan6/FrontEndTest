@@ -43,6 +43,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             if ( user is null || password is false) return new LoginResult(false);
 
             // Creation of Tokens
+            var session = new AppSession(); // Paused here
             var tokenPrep = await _jwtCreator.GetTokenAsync(user);  // Token Prep
             var tokenToReturn = new JwtSecurityTokenHandler().WriteToken(tokenPrep);
             var refreshTokenToReturn = generateRefreshToken(ipAddress);

@@ -19,10 +19,7 @@ namespace FrontEndTestAPI.DbAccessLayer.Entities
         public bool IsActive => (this.Revoked is null) && (!this.IsExpired);
         public bool IsExpired => DateTime.UtcNow >= this.Expires;
 
-
         // <-- Relationships --> //
-
-
         //// Parent Relationship One-to-Many
         public ApplicationUser User { get; set; }                           // Navigation Prop
         public string ApplicationUserId { get; set; }                       // Foreign Key
