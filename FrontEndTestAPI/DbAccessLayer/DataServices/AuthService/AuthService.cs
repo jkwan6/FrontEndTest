@@ -10,10 +10,11 @@ using System.Security.Cryptography;
 using System.Linq;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using AutoMapper.QueryableExtensions;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 
-namespace FrontEndTestAPI.DbAccessLayer.DataServices
+namespace FrontEndTestAPI.DbAccessLayer.DataServices.AuthService
 {
-    public class AuthService: IAuthService
+    public class AuthService : IAuthService
     {
         // Properties
         private readonly ApplicationDbContext _context;
@@ -40,7 +41,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             var password = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
 
             // Early Return if Authentication Fails
-            if ( user is null || password is false) return new LoginResult(false);
+            if (user is null || password is false) return new LoginResult(false);
 
             // Creation of Tokens
             var session = new AppSession(); // Paused here
@@ -55,7 +56,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             _context.SaveChanges();
 
             // Assigning Token to Login Result
-            var loginResult = new LoginResult(true) 
+            var loginResult = new LoginResult(true)
             { token = tokenToReturn, refreshToken = refreshTokenToReturn.Token };
 
             // Returning LoginResult
@@ -69,11 +70,11 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             // Provides me with the user based on token and ipAddress
             var user = _context.Users
                 .SingleOrDefault(u => u.RefreshTokens
-                .Any(t =>   t.Token == oldRefreshToken 
-                        &&  t.CreatedByIp == ipAddress));
+                .Any(t => t.Token == oldRefreshToken
+                        && t.CreatedByIp == ipAddress));
 
             // If conditions not met, Return Early
-            if (user is null) return new LoginResult(false) {message = "No User Found"};
+            if (user is null) return new LoginResult(false) { message = "No User Found" };
 
             // Get Current Refresh Token based on User and Refresh Token Parameter
             var currentRefreshTokenPrep = _context.Users
@@ -105,7 +106,7 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
             return new LoginResult(true) { token = tokenToReturn, refreshToken = newRefreshToken.Token };
         }
 
-        
+
 
         public async Task<LoginResult> RevokeToken(string refreshTokenString, string ipAdress)
         {

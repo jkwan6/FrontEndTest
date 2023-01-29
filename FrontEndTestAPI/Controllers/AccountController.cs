@@ -2,7 +2,7 @@
 using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data_Models.DTO;
 using FrontEndTestAPI.Data_Models.POCO;
-using FrontEndTestAPI.DbAccessLayer.DataServices;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 using FrontEndTestAPI.DbAccessLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

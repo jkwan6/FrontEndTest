@@ -5,6 +5,7 @@ using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DataTransferObjects;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -13,14 +14,18 @@ namespace FrontEndTestAPI.DataServices
 {
     public class CityService : ICityService
     {
+        #region Properties
         private readonly ApplicationDbContext _context;                                     // Property
         private readonly IMapper _mapper;                                                   // Property - If Automapper to be used
+        #endregion
 
+        #region Constructor
         public CityService(ApplicationDbContext context, IMapper mapper)                    // Constructor
         {
             _context = context;                                                             // DI
             _mapper = mapper;                                                               // DI
         }
+        #endregion
 
         public async Task<ActionResult<ApiResult<CityDTO>>>GetCitiesAsync
             (PageParameters pageParams)                                                     // Params from Model Binding
@@ -143,6 +148,7 @@ namespace FrontEndTestAPI.DataServices
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
+        #region Private Methods
         public bool IsDupeCity(City city)
         {
             var isDupeCity = _context.Cities.Any( e =>
@@ -154,5 +160,6 @@ namespace FrontEndTestAPI.DataServices
 
             return isDupeCity;
         }
+        #endregion
     }
 }

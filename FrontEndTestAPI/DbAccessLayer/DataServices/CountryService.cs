@@ -5,7 +5,7 @@ using FrontEndTestAPI.Data.AppDbContext;
 using FrontEndTestAPI.Data.Models;
 using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DataTransferObjects;
-using FrontEndTestAPI.DbAccessLayer.DataServices;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

@@ -4,7 +4,7 @@ using FrontEndTestAPI.Data_Models.POCO;
 using FrontEndTestAPI.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FrontEndTestAPI.DataServices
+namespace FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces
 {
     public interface ICityService
     {

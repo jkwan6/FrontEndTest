@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace FrontEndTestAPI.DbAccessLayer.DataServices
+namespace FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces
 {
     public interface IAuthService
     {

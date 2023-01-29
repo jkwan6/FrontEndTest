@@ -12,9 +12,9 @@ using FrontEndTestAPI.Data.ApiResult;
 using FrontEndTestAPI.DataServices;
 using System.Drawing;
 using FrontEndTestAPI.Data_Models.POCO;
-using FrontEndTestAPI.DbAccessLayer.DataServices;
 using Azure;
 using Microsoft.AspNetCore.Authorization;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 
 namespace FrontEndTestAPI.Controllers
 {

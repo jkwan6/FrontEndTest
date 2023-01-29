@@ -7,17 +7,23 @@ using System.Text;
 
 namespace FrontEndTestAPI.DbAccessLayer.DataServices
 {
+    
     public class JwtCreatorService 
     {
+        #region Properties
         private readonly IConfiguration _config;
         private readonly UserManager<ApplicationUser> _userManager;
+        #endregion
 
+        #region Constructor
         public JwtCreatorService(IConfiguration config, UserManager<ApplicationUser> userManager)
         {
             _config = config;
             _userManager = userManager;
         }
+        #endregion
 
+        #region Public Methods
         // Method to create Tokens.  Calls the Private Method beneath
         public async Task<JwtSecurityToken> GetTokenAsync(ApplicationUser user)
         {
@@ -31,7 +37,9 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
             return jwtOptions;
         }
+        #endregion
 
+        #region Private Methods
         // Method To Create a Key and then Creating Signing Credentials from the Key
         private SigningCredentials GetSigningCredentials()
         {
@@ -55,7 +63,6 @@ namespace FrontEndTestAPI.DbAccessLayer.DataServices
 
             return claims;
         }
-
-
+        #endregion
     }
 }

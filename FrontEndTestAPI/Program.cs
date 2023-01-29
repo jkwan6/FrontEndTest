@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Cors;
 using System.Diagnostics;
+using FrontEndTestAPI.DbAccessLayer.DataServices.AuthService;
+using FrontEndTestAPI.DbAccessLayer.DataServices.ServiceInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
