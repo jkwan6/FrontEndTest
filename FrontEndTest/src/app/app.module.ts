@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './WebUI/nav-bar-layout/nav-bar.component';
+import { TopNavBarComponent } from './WebUI/top-nav-bar/top-nav-bar.component';
+
+
 import { HomeComponent } from './WebUI/pages/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +43,7 @@ import { TestPageSevenComponent } from './WebUI/pages/test-page-7/test-page-seve
   declarations: [
     AppComponent,
     NavBarComponent,
+    TopNavBarComponent,
     HomeComponent,
     FooterBarComponent,
     TestPageOneComponent,

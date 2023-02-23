@@ -1,0 +1,45 @@
+.separator {
+    flex:1 1 auto;
+}
+
+.overall-container {
+  display: flex;
+  background-color: #ED2939;
+  flex-direction:row;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.text-container {
+  margin-left:15px;
+  margin-right:15px;
+  display:flex;
+  justify-content:center;
+
+}
+
+.individual{
+    margin-left:5px;
+    align-self:center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:white;
+}
+
+
+.pressed {
+  background: rgba(0,0,0,.2);
+}
+
+.default-button-configs {
+  margin: 4px;
+  min-width: 50px;
+}
+.default-button-configs:hover {
+    background-color: grey;
+}
+
+
+.Pill-Button{
+    border-radius:100vw;}
+
+
