@@ -47,7 +47,6 @@ export class TestPageFiveComponent implements OnInit {
 
 
 
-    this.gui = new DAT.GUI();
 
 
 
